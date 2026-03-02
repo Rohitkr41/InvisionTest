@@ -1,75 +1,32 @@
-package pages;
 
-import java.time.Duration;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage {
-
-    WebDriver driver;
-    WebDriverWait wait;
+public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        super(driver);
     }
 
-    By username = By.name("loginModel.Username");
-    By password = By.name("loginModel.Password");
-    By loginBtn = By.xpath("//button[@type='submit']");
+    private By username = By.name("loginModel.Username");
+    private By password = By.name("loginModel.Password");
+    private By captcha = By.cssSelector("input[placeholder='Captcha']");
+    private By loginBtn = By.xpath("//button[contains(text(),'Login')]");
 
     public void login(String user, String pass) {
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(user);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(password)).sendKeys(pass);
-        wait.until(ExpectedConditions.elementToBeClickable(loginBtn)).click();
+        type(username, user);
+        type(password, pass);
+
+        System.out.println("Enter captcha manually...");
+
+        wait.until(driver ->
+                driver.findElement(captcha).getAttribute("value").length() > 0
+        );
+
+        click(loginBtn);
+        waitForUrlContains("adminDashboard");
     }
 }
-
-
-
-//package pages;
-//
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.WebElement;
-//import org.openqa.selenium.support.FindBy;
-//import org.openqa.selenium.support.PageFactory;
-//
-//import base.BasePage;
-//import utils.ConfigReader;
-//
-//public class LoginPage extends BasePage {
-//
-//    public LoginPage(WebDriver driver) {
-//        super(driver);
-//        PageFactory.initElements(driver, this);
-//    }
-//
-//    @FindBy(name = "loginModel.Username")
-//    private WebElement username;
-//
-//    @FindBy(name = "loginModel.Password")
-//    private WebElement password;
-//
-//    @FindBy(xpath = "//button[.='Login']")
-//    private WebElement loginBtn;
-//
-//    public void login() {
-//
-//        sendKeys(username, "SuperAdmin");
-//        sendKeys(password, "Super@123");
-//
-//        String env = ConfigReader.getProperty("environment");
-//
-//        if (env.equalsIgnoreCase("QA")) {
-//            System.out.println("QA Environment → Captcha Disabled");
-//        } else {
-//            System.out.println("Non-QA → Handle Captcha");
-//        }
-//
-//       click(loginBtn);
-//    }
-//}

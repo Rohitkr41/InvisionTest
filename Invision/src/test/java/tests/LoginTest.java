@@ -1,51 +1,40 @@
+
+
 package tests;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import base.BaseTest;
 import pages.LoginPage;
 import utils.ConfigReader;
 
-public class LoginTest extends BaseTest {
+import java.time.Duration;
+
+public class LoginTest extends base.BaseTest {
 
     @Test
-    public void verifyLogin() {
+    public void validLoginTest() {
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage login = new LoginPage(driver);
 
-        loginPage.login(
-                ConfigReader.getProperty("username"),
-                ConfigReader.getProperty("password")
-        );
+        String username = ConfigReader.getProperty("username");
+        String password = ConfigReader.getProperty("password");
 
-        System.out.println("Login Successful");
+        login.login(username, password);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        wait.until(ExpectedConditions.urlContains("adminDashboard"));
+
+        By dashboardHeader = By.xpath("//h4[contains(text(),'Admin Dashboard')]");
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(dashboardHeader));
+
+        Assert.assertTrue(driver.findElement(dashboardHeader).isDisplayed(),
+                "Login Failed");
+
+        System.out.println("✅ Login Successful");
     }
 }
-
-
-//package tests;
-//
-//import org.testng.Assert;
-//import org.testng.annotations.Test;
-//
-//import base.BaseTest;
-//import pages.AdminDashboardPage;
-//import pages.LoginPage;
-//
-//public class LoginTest extends BaseTest {
-//
-//    @Test
-//    public void verifyLogin() {
-//
-//        LoginPage loginPage = new LoginPage(driver);
-//        loginPage.login();
-//
-//        AdminDashboardPage dashboardPage =
-//                new AdminDashboardPage(driver);
-//
-//        Assert.assertTrue(
-//                dashboardPage.isDashboardDisplayed(),
-//                "Login Failed! Admin Dashboard not displayed."
-//        );
-//    }
-//}

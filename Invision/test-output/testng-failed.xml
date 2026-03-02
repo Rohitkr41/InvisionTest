@@ -3,13 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.location.LocationMasterTest">
+      <class name="tests.RegistrationTest">
         <methods>
-          <include name="setup"/>
-          <include name="tearDown"/>
-          <include name="verifyLocationMasterDropdown"/>
+          <include name="verifyRegistrationPageOpen"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- tests.location.LocationMasterTest -->
+      </class> <!-- tests.RegistrationTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
