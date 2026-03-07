@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-07T15:44:09 IST" name="Default suite" finished-at="2026-03-07T15:44:20 IST" duration-ms="10985">
+  <suite started-at="2026-03-07T17:52:38 IST" name="Default suite" finished-at="2026-03-07T17:52:50 IST" duration-ms="11029">
     <groups>
     </groups>
-    <test started-at="2026-03-07T15:44:09 IST" name="Default test" finished-at="2026-03-07T15:44:20 IST" duration-ms="10985">
+    <test started-at="2026-03-07T17:52:38 IST" name="Default test" finished-at="2026-03-07T17:52:50 IST" duration-ms="11029">
       <class name="tests.FollowUpRegistrationTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.FollowUpRegistrationTest@75d4a5c2]" started-at="2026-03-07T15:44:09 IST" name="setUp" finished-at="2026-03-07T15:44:13 IST" duration-ms="3723" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.FollowUpRegistrationTest@75d4a5c2]" started-at="2026-03-07T17:52:39 IST" name="setUp" finished-at="2026-03-07T17:52:42 IST" duration-ms="3643" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="followUpRegistration()[pri:0, instance:tests.FollowUpRegistrationTest@75d4a5c2]" started-at="2026-03-07T15:44:13 IST" name="followUpRegistration" finished-at="2026-03-07T15:44:20 IST" duration-ms="7212" status="PASS">
+        <test-method signature="followUpRegistration()[pri:0, instance:tests.FollowUpRegistrationTest@75d4a5c2]" started-at="2026-03-07T17:52:42 IST" name="followUpRegistration" finished-at="2026-03-07T17:52:49 IST" duration-ms="7337" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- followUpRegistration -->
