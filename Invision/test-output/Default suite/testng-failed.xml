@@ -6,6 +6,7 @@
       <class name="tests.WalkInRegistrationTest">
         <methods>
           <include name="setUp"/>
+          <include name="takeScreenshotOnFailure"/>
           <include name="walkInRegistration"/>
         </methods>
       </class> <!-- tests.WalkInRegistrationTest -->

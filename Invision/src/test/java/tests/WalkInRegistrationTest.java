@@ -1,45 +1,20 @@
-//package tests;
-//
-//import base.BaseTest;
-//import org.testng.annotations.Test;
-//import pages.LoginPage;
-//import pages.SidebarPage;
-//import pages.PatientTypePage;
-//import utils.ConfigReader;
-//
-//public class WalkInRegistrationTest extends BaseTest {
-//
-//    @Test
-//    public void walkInRegistration() {
-//
-//        LoginPage login = new LoginPage(driver);
-//        login.login(
-//                ConfigReader.getProperty("username"),
-//                ConfigReader.getProperty("password")
-//        );
-//
-//        SidebarPage sidebar = new SidebarPage(driver);
-//        sidebar.clickVisionCenter();
-//        sidebar.clickRegistration();
-//
-//        PatientTypePage patientType = new PatientTypePage(driver);
-//        patientType.selectWalkIn();
-//
-//        System.out.println("Walk-In Patient Type Selected");
-//    }
-//}
-
 
 package tests;
 
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
+
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import pages.LoginPage;
 import pages.PatientTypePage;
 import pages.SidebarPage;
 import pages.WalkInRegistrationPage;
 import utils.ConfigReader;
+import utils.ScreenshotUtil;
 
 public class WalkInRegistrationTest extends BaseTest {
 
@@ -65,6 +40,21 @@ public class WalkInRegistrationTest extends BaseTest {
 	    // Fill Walk-In Registration
 	    WalkInRegistrationPage reg = new WalkInRegistrationPage(driver);
 	    reg.registerWalkInPatient();
+	}
+	
+	@AfterMethod
+	public void takeScreenshotOnFailure(ITestResult result) {
+
+	    if (ITestResult.FAILURE == result.getStatus()) {
+
+	        ScreenshotUtil.captureScreenshot(driver, result.getName());
+
+	    }
+	    
+	 // Error Message Validation
+        String errorMsg = driver.findElement(By.xpath("(//*[@id='main']//span)[2]")).getText();
+
+        Assert.assertNotEquals(errorMsg, "Please select patient type.");
 	}
 
 }

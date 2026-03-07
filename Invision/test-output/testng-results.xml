@@ -1,62 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-06T18:02:00 IST" name="Default suite" finished-at="2026-03-06T18:02:17 IST" duration-ms="17403">
+  <suite started-at="2026-03-07T11:15:58 IST" name="Default suite" finished-at="2026-03-07T11:16:11 IST" duration-ms="13558">
     <groups>
     </groups>
-    <test started-at="2026-03-06T18:02:00 IST" name="Default test" finished-at="2026-03-06T18:02:17 IST" duration-ms="17403">
+    <test started-at="2026-03-07T11:15:58 IST" name="Default test" finished-at="2026-03-07T11:16:11 IST" duration-ms="13558">
       <class name="tests.WalkInRegistrationTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.WalkInRegistrationTest@75d4a5c2]" started-at="2026-03-06T18:02:00 IST" name="setUp" finished-at="2026-03-06T18:02:03 IST" duration-ms="3562" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.WalkInRegistrationTest@3c46e67a]" started-at="2026-03-07T11:15:58 IST" name="setUp" finished-at="2026-03-07T11:16:01 IST" duration-ms="3430" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="walkInRegistration()[pri:0, instance:tests.WalkInRegistrationTest@75d4a5c2]" started-at="2026-03-06T18:02:03 IST" name="walkInRegistration" finished-at="2026-03-06T18:02:17 IST" duration-ms="13789" status="FAIL">
-          <exception class="org.openqa.selenium.InvalidElementStateException">
+        <test-method signature="walkInRegistration()[pri:0, instance:tests.WalkInRegistrationTest@3c46e67a]" started-at="2026-03-07T11:16:01 IST" name="walkInRegistration" finished-at="2026-03-07T11:16:11 IST" duration-ms="10044" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- walkInRegistration -->
+        <test-method is-config="true" signature="takeScreenshotOnFailure(org.testng.ITestResult)[pri:0, instance:tests.WalkInRegistrationTest@3c46e67a]" started-at="2026-03-07T11:16:11 IST" name="takeScreenshotOnFailure" finished-at="2026-03-07T11:16:11 IST" duration-ms="38" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=walkInRegistration status=SUCCESS method=WalkInRegistrationTest.walkInRegistration()[pri:0, instance:tests.WalkInRegistrationTest@3c46e67a] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
             <message>
-              <![CDATA[invalid element state
-  (Session info: chrome=145.0.7632.160)
-Build info: version: '4.18.1', revision: 'b1d3319b48'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [60d484c0e8e4f992b45a370d6edbb065, clearElement {id=f.A8BA72170717623318B2D774DB31D8DF.d.83FDDA455CA4CF9EF3C16E418F325227.e.82}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 145.0.7632.160, chrome: {chromedriverVersion: 145.0.7632.117 (de4e5d6e13b..., userDataDir: C:\Users\sumit\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59500}, goog:processID: 20112, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59500/devtoo..., se:cdpVersion: 145.0.7632.160, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (60d484c0e8e4f992b45a370d6edbb065)] -> xpath: //*[@id='main']//form//div[5]//input]
-Session ID: 60d484c0e8e4f992b45a370d6edbb065]]>
+              <![CDATA[did not expect [Please select patient type.] but found [Please select patient type.]]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.InvalidElementStateException: invalid element state
-  (Session info: chrome=145.0.7632.160)
-Build info: version: '4.18.1', revision: 'b1d3319b48'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [60d484c0e8e4f992b45a370d6edbb065, clearElement {id=f.A8BA72170717623318B2D774DB31D8DF.d.83FDDA455CA4CF9EF3C16E418F325227.e.82}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 145.0.7632.160, chrome: {chromedriverVersion: 145.0.7632.117 (de4e5d6e13b..., userDataDir: C:\Users\sumit\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59500}, goog:processID: 20112, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59500/devtoo..., se:cdpVersion: 145.0.7632.160, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (60d484c0e8e4f992b45a370d6edbb065)] -> xpath: //*[@id='main']//form//div[5]//input]
-Session ID: 60d484c0e8e4f992b45a370d6edbb065
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:519)
-at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
-at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:129)
-at pages.WalkInRegistrationPage.applyDiscount(WalkInRegistrationPage.java:119)
-at pages.WalkInRegistrationPage.registerWalkInPatient(WalkInRegistrationPage.java:163)
-at tests.WalkInRegistrationTest.walkInRegistration(WalkInRegistrationTest.java:67)
+              <![CDATA[java.lang.AssertionError: did not expect [Please select patient type.] but found [Please select patient type.]
+at org.testng.Assert.fail(Assert.java:111)
+at org.testng.Assert.failEquals(Assert.java:1594)
+at org.testng.Assert.assertNotEqualsImpl(Assert.java:157)
+at org.testng.Assert.assertNotEquals(Assert.java:2217)
+at org.testng.Assert.assertNotEquals(Assert.java:2239)
+at tests.WalkInRegistrationTest.takeScreenshotOnFailure(WalkInRegistrationTest.java:57)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:836)
+at org.testng.internal.invokers.TestInvoker.runAfterConfigurations(TestInvoker.java:805)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:781)
 at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
 at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
 at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
@@ -81,10 +70,10 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.InvalidElementStateException -->
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- walkInRegistration -->
+        </test-method> <!-- takeScreenshotOnFailure -->
       </class> <!-- tests.WalkInRegistrationTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

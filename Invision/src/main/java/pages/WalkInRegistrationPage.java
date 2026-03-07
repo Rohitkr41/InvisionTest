@@ -1,4 +1,3 @@
-
 package pages;
 
 import org.openqa.selenium.By;
@@ -45,8 +44,20 @@ public class WalkInRegistrationPage extends BasePage {
     // Discount Checkbox
     By discountCheckbox = By.xpath("//*[@id='main']//div[3]//div[2]//div[4]//input");
 
-    // Discount TextField
-    By discountTextField = By.xpath("//*[@id='main']//form//div[5]//input");
+    // Discount Amount TextField
+    By discountTextField = By.xpath("(//*[@id='main']//form//div[5]//input)[5]");
+
+    // Discount Remark Dropdown
+    By discountRemarkDropdown = By.xpath("//label[contains(text(),'Discount Remark')]/following::select[1]");
+
+    // Mode Dropdown
+    By modeDropdown = By.xpath("//label[contains(text(),'Mode')]/following::select[1]");
+
+    // Transaction Id
+    By transactionId = By.xpath("(//*[@id='main']//div[8]//input)[2]");
+    
+    //registrationBtn
+    By registrationBtn = By.id("RM_btnSubmit");
 
 
     // Occupation Select
@@ -87,40 +98,45 @@ public class WalkInRegistrationPage extends BasePage {
     }
 
 
-    // Discount Checkbox Select
-    public void selectDiscount() {
-
-        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(discountCheckbox));
-
-        if(!checkbox.isSelected()) {
-            checkbox.click();
-        }
-    }
-
-
-    // Enter Discount Amount
-//    public void enterDiscount(String discountAmount) {
-//
-//        WebElement discount = wait.until(
-//                ExpectedConditions.visibilityOfElementLocated(discountTextField));
-//
-//        wait.until(ExpectedConditions.elementToBeClickable(discountTextField));
-//
-//        discount.clear();
-//        discount.sendKeys(discountAmount);
-//    }
-    
+    // Apply Discount
     public void applyDiscount(String amount) {
 
+        WebElement checkbox = wait.until(
+                ExpectedConditions.elementToBeClickable(discountCheckbox));
+        checkbox.click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         WebElement discountField = wait.until(
-                ExpectedConditions.elementToBeClickable(discountTextField)
-        );
+                ExpectedConditions.elementToBeClickable(discountTextField));
 
         discountField.clear();
         discountField.sendKeys(amount);
     }
 
 
+    // Select Discount Remark
+    public void selectDiscountRemark(String remark) {
+
+        wait.until(ExpectedConditions.elementToBeClickable(discountRemarkDropdown));
+
+        Select remarkDropdown = new Select(driver.findElement(discountRemarkDropdown));
+        remarkDropdown.selectByVisibleText(remark);
+    }
+
+
+    // Mode Select
+    public void selectMode(String modeType) {
+
+        wait.until(ExpectedConditions.elementToBeClickable(modeDropdown));
+
+        Select mode = new Select(driver.findElement(modeDropdown));
+        mode.selectByVisibleText(modeType);
+    }
 
 
 
@@ -155,12 +171,19 @@ public class WalkInRegistrationPage extends BasePage {
         // Village
         selectVillage("Rampur");
 
-        // Discount Checkbox
-        selectDiscount();
-
-        // Discount Amount
-//        enterDiscount("20");
+        // Apply Discount
         applyDiscount("10");
+
+        // Discount Remark
+        selectDiscountRemark("Free visit");
+
+        // Mode
+        selectMode("UPI");
+
+        // Transaction Id
+        driver.findElement(transactionId).sendKeys("gpayr373677343");
+       
+        //registrationBtn
+        click(registrationBtn);
     }
 }
-
