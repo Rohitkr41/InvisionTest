@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest
 
 package pages;
 
@@ -89,4 +93,8 @@ public class BasePage {
         Select dropdown = new Select(driver.findElement(locator));
         dropdown.selectByVisibleText(visibleText);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest
 }
