@@ -3,15 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.ViewPatient.ViewPatientTest">
+      <class name="tests.PatientReceipt.PatientReceiptTest">
         <methods>
+          <include name="searchByFirstName"/>
           <include name="setUp"/>
-          <include name="searchPatientByDateRange"/>
-          <include name="searchByRegistrationNumber"/>
-          <include name="searchByRegistrationType"/>
-          <include name="searchPatientByMobile"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- tests.ViewPatient.ViewPatientTest -->
+      </class> <!-- tests.PatientReceipt.PatientReceiptTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

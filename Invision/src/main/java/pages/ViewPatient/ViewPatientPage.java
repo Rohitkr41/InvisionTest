@@ -1,11 +1,15 @@
+
 package pages.ViewPatient;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 import pages.BasePage;
 
@@ -16,260 +20,189 @@ public class ViewPatientPage extends BasePage {
     }
 
     // =============================
-    // View Patient Menu
+    // Locators
     // =============================
 
     private By viewPatientMenu = By.xpath("//span[normalize-space()='View Patient']");
-
-
-    // =============================
-    // Main Search Section
-    // =============================
-
     private By registrationTypeDropdown = By.xpath("//select[contains(@class,'form-select')]");
-
     private By registrationNoField = By.name("inputvalofMedicalNo");
-
     private By searchBtn = By.xpath("//*[@id='top-headings']//form//a[1]//img");
-
     private By advanceSearchIcon = By.xpath("//form//a[2]//i");
-
-
-    // =============================
-    // Advance Search Popup
-    // =============================
-
     private By fromDate = By.name("fromDate");
     private By toDate = By.name("toDate");
-
     private By patientFirstName = By.name("inputValOfPatientname");
-
     private By phoneNumber = By.name("inputValueofPhoneNo");
-
     private By village = By.name("selectedAreaforSearch.AreaName");
-
     private By advanceSearchBtn = By.xpath("//a[.='Search']");
     private By cancelBtn = By.xpath("//button[.='Cancel']");
+    private By alertOk = By.xpath("//*[@id='main']//button[normalize-space()='OK']");
 
+    // =============================
+    // ALERT HANDLER
+    // =============================
+
+    public void closeAlertIfPresent() {
+        try {
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            WebElement okBtn = shortWait.until(ExpectedConditions.elementToBeClickable(alertOk));
+            okBtn.click();
+            wait.until(ExpectedConditions.invisibilityOf(okBtn));
+            System.out.println("⚠ Popup Closed");
+        } catch (TimeoutException e) {
+            // popup not present, ignore
+        }
+    }
 
     // =============================
     // Open View Patient Page
     // =============================
 
     public void clickViewPatient() {
-
+        closeAlertIfPresent();
         wait.until(ExpectedConditions.elementToBeClickable(viewPatientMenu)).click();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
-
     // =============================
-    // Stable Registration Type Dropdown
+    // Registration Type Dropdown
     // =============================
 
     public void selectRegistrationType(String type) {
-
-        WebElement dropdown = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(registrationTypeDropdown));
-
+        closeAlertIfPresent();
+        WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(registrationTypeDropdown));
         wait.until(ExpectedConditions.elementToBeClickable(dropdown));
-
         wait.until(driver -> new Select(dropdown).getOptions().size() > 1);
 
         int attempts = 0;
-
         while (attempts < 3) {
-
             try {
-
                 Select select = new Select(dropdown);
                 select.selectByVisibleText(type);
-
                 return;
-
             } catch (Exception e) {
-
                 attempts++;
-
-                try {
-                    Thread.sleep(700);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+                try { Thread.sleep(700); } catch (InterruptedException ignored) {}
             }
         }
 
         // JavaScript fallback
         JavascriptExecutor js = (JavascriptExecutor) driver;
-
         js.executeScript(
-                "var select = arguments[0];" +
-                "for(var i=0;i<select.options.length;i++){" +
-                " if(select.options[i].text=='" + type + "'){" +
-                " select.selectedIndex=i;" +
-                " select.dispatchEvent(new Event('change'));" +
-                " break;" +
-                " }" +
-                "}", dropdown);
+            "var select = arguments[0];" +
+            "for(var i=0;i<select.options.length;i++){" +
+            " if(select.options[i].text=='" + type + "'){" +
+            " select.selectedIndex=i;" +
+            " select.dispatchEvent(new Event('change'));" +
+            " break;" +
+            " }" +
+            "}", dropdown);
     }
 
-
-    // Quick Methods
-
-    public void selectWalkIn() {
-        selectRegistrationType("Walk-In/New");
-    }
-
-    public void selectFollowUp() {
-        selectRegistrationType("Followup/Old");
-    }
-
-    public void selectReferral() {
-        selectRegistrationType("Referral");
-    }
-
-    public void selectPostOp() {
-        selectRegistrationType("Post-Op");
-    }
-
-    public void selectOutreachCamp() {
-        selectRegistrationType("Outreach-Camp");
-    }
-
-    public void selectSchoolScreening() {
-        selectRegistrationType("School-Screening");
-    }
-
+    // Quick Methods for registration types
+    public void selectWalkIn() { selectRegistrationType("Walk-In/New"); }
+    public void selectFollowUp() { selectRegistrationType("Followup/Old"); }
+    public void selectReferral() { selectRegistrationType("Referral"); }
+    public void selectPostOp() { selectRegistrationType("Post-Op"); }
+    public void selectOutreachCamp() { selectRegistrationType("Outreach-Camp"); }
+    public void selectSchoolScreening() { selectRegistrationType("School-Screening"); }
 
     // =============================
     // Search By Registration No
     // =============================
 
     public void searchByRegistrationNo(String regNo) {
-
-        WebElement field = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(registrationNoField));
-
+        closeAlertIfPresent();
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(registrationNoField));
         field.clear();
         field.sendKeys(regNo);
     }
-
 
     // =============================
     // Click Search
     // =============================
 
     public void clickSearch() {
-
+        closeAlertIfPresent();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".custom-modal")));
-
-        WebElement search = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(searchBtn));
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView(true);", search);
-
+        WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(searchBtn));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", search);
         wait.until(ExpectedConditions.elementToBeClickable(search));
-
         try {
             search.click();
         } catch (Exception e) {
-
-            ((JavascriptExecutor) driver)
-                    .executeScript("arguments[0].click();", search);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", search);
         }
+        waitAfterSearch();
     }
-
 
     // =============================
     // Open Advance Search
     // =============================
 
     public void clickAdvanceSearch() {
-
-        WebElement btn = wait.until(
-                ExpectedConditions.elementToBeClickable(advanceSearchIcon));
-
+        closeAlertIfPresent();
+        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(advanceSearchIcon));
         btn.click();
-
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        ((JavascriptExecutor) driver)
-                .executeScript("window.scrollBy(0,300)");
+        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,300)");
     }
-
 
     // =============================
     // Advance Search Filters
     // =============================
 
     public void enterFirstName(String name) {
-
-        WebElement field = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(patientFirstName));
-
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(patientFirstName));
         field.clear();
         field.sendKeys(name);
     }
 
-
     public void enterPhoneNumber(String phone) {
-
-        WebElement field = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(phoneNumber));
-
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(phoneNumber));
         field.clear();
         field.sendKeys(phone);
     }
 
-
     public void enterVillage(String villageName) {
-
-        WebElement field = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(village));
-
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(village));
         field.clear();
         field.sendKeys(villageName);
     }
 
-
     public void selectDateRange(String from, String to) {
-
-        WebElement fromField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(fromDate));
-
+        WebElement fromField = wait.until(ExpectedConditions.visibilityOfElementLocated(fromDate));
         fromField.clear();
         fromField.sendKeys(from);
 
-        WebElement toField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(toDate));
-
+        WebElement toField = wait.until(ExpectedConditions.visibilityOfElementLocated(toDate));
         toField.clear();
         toField.sendKeys(to);
     }
-
 
     // =============================
     // Advance Search Button
     // =============================
 
     public void clickAdvanceSearchButton() {
-
+        closeAlertIfPresent();
         wait.until(ExpectedConditions.elementToBeClickable(advanceSearchBtn)).click();
+        waitAfterSearch();
     }
 
-
     public void clickCancel() {
-
+        closeAlertIfPresent();
         wait.until(ExpectedConditions.elementToBeClickable(cancelBtn)).click();
+    }
+
+    // =============================
+    // WAIT AFTER SEARCH
+    // =============================
+
+    private void waitAfterSearch() {
+        try {
+            wait.until(ExpectedConditions.or(
+                ExpectedConditions.presenceOfElementLocated(alertOk),
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//table/tbody/tr"))
+            ));
+        } catch (Exception e) {}
+        closeAlertIfPresent();
     }
 }

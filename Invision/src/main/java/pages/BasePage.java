@@ -15,7 +15,7 @@ public class BasePage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
-
+   
     public BasePage(WebDriver driver) {
 
         this.driver = driver;
@@ -90,3 +90,4 @@ public class BasePage {
         dropdown.selectByVisibleText(visibleText);
     }
 }
+

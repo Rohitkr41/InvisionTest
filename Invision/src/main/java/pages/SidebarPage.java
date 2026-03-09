@@ -21,6 +21,7 @@ public class SidebarPage {
     // Locators
     By visionCenterMenu = By.xpath("//span[contains(text(),'Vision Center')]");
     By registrationMenu = By.xpath("//span[text()='Registration']");
+    By patientReceiptMenu = By.xpath("//span[.='Print Reciept']");
 
     // Click Vision Center
     public void clickVisionCenter() {
@@ -31,4 +32,9 @@ public class SidebarPage {
     public void clickRegistration() {
         wait.until(ExpectedConditions.elementToBeClickable(registrationMenu)).click();
     }
+
+	public void clickPatientReceipt() {
+		// TODO Auto-generated method stub
+		 wait.until(ExpectedConditions.elementToBeClickable(patientReceiptMenu)).click();
+	}
 }
