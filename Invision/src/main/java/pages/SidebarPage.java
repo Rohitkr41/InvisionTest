@@ -1,69 +1,17 @@
-//
-//package pages;
-//
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.support.ui.ExpectedConditions;
-//import org.openqa.selenium.support.ui.WebDriverWait;
-//
-//import java.time.Duration;
-//
-//public class SidebarPage {
-//
-//    WebDriver driver;
-//    WebDriverWait wait;
-//
-//    public SidebarPage(WebDriver driver) {
-//        this.driver = driver;
-//        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//    }
-//
-//    // Locators
-//    By visionCenterMenu = By.xpath("//span[contains(text(),'Vision Center')]");
-//    By registrationMenu = By.xpath("//span[text()='Registration']");
-//    By patientReceiptMenu = By.xpath("//span[.='Print Reciept']");
-//    By EyeExaminationMenu = By.xpath("//span[.='Eye Examination']");
-//
-//    // Click Vision Center
-//    public void clickVisionCenter() {
-//        wait.until(ExpectedConditions.elementToBeClickable(visionCenterMenu)).click();
-//    }
-//
-//    // Click Registration
-//    public void clickRegistration() {
-//        wait.until(ExpectedConditions.elementToBeClickable(registrationMenu)).click();
-//    }
-//
-//	public void clickPatientReceipt() {
-//		// TODO Auto-generated method stub
-//		 wait.until(ExpectedConditions.elementToBeClickable(patientReceiptMenu)).click();
-//	}
-//
-//	public void openEyeExamination() {
-//		// TODO Auto-generated method stub
-//		wait.until(ExpectedConditions.elementToBeClickable(EyeExaminationMenu)).click();
-//	}
-//}
-
 
 package pages;
 
 import java.time.Duration;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SidebarPage {
 
-    WebDriver driver;
-    WebDriverWait wait;
+    private WebDriver driver;
+    private WebDriverWait wait;
 
     public SidebarPage(WebDriver driver) {
-
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
@@ -72,75 +20,63 @@ public class SidebarPage {
     // LOCATORS
     // ======================
 
-    By visionCenterMenu = By.xpath("//span[contains(text(),'Vision Center')]");
-    By registrationMenu = By.xpath("//span[text()='Registration']");
-	By patientReceiptMenu = By.xpath("//span[.='Print Reciept']");
-	By EyeExaminationMenu = By.xpath("//span[.='Eye Examination']");
+    private By visionCenterMenu       = By.xpath("//span[contains(text(),'Vision Center')]");
+    private By registrationMenu       = By.xpath("//span[normalize-space()='Registration']");
+    private By patientReceiptMenu     = By.xpath("//span[normalize-space()='Print Reciept']");
+    private By eyeExaminationMenu     = By.xpath("//span[normalize-space()='Eye Examination']");
+
+    private By spectacleMenu          = By.xpath("//span[normalize-space()='Spectacle']");
+    private By spectacleBookingMenu   = By.xpath("//span[normalize-space()='Spectacle Booking']");
 
     // ======================
-    // CLICK VISION CENTER
+    // SAFE CLICK METHOD
     // ======================
-
-    public void clickVisionCenter() {
-
-        WebElement menu = wait.until(
-                ExpectedConditions.elementToBeClickable(visionCenterMenu));
-
+    private void safeClick(By locator) {
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         try {
-
-            menu.click();
-
+            element.click();
         } catch (Exception e) {
-
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click();", menu);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
         }
     }
 
     // ======================
-    // CLICK REGISTRATION
+    // VISION CENTER MENU
     // ======================
+    public void clickVisionCenter() {
+        safeClick(visionCenterMenu);
+    }
 
     public void clickRegistration() {
-
-        WebElement menu = wait.until(
-                ExpectedConditions.elementToBeClickable(registrationMenu));
-
-        menu.click();
+        safeClick(registrationMenu);
     }
-
-    // ======================
-    // CLICK PRINT RECEIPT
-    // ======================
 
     public void clickPatientReceipt() {
+        safeClick(patientReceiptMenu);
+    }
 
-        WebElement menu = wait.until(
-                ExpectedConditions.elementToBeClickable(patientReceiptMenu));
-
-        menu.click();
+    public void openEyeExamination() {
+        clickVisionCenter();
+        safeClick(eyeExaminationMenu);
     }
 
     // ======================
-    // OPEN EYE EXAMINATION
+    // SPECTACLE MENU
     // ======================
-
-    public void openEyeExamination() {
-
-        // ensure Vision Center is open
-        clickVisionCenter();
-
-        WebElement eyeExam = wait.until(
-                ExpectedConditions.elementToBeClickable(EyeExaminationMenu));
-
+    public void clickSpectacle() {
         try {
+            // Expand Spectacle main menu
+            safeClick(spectacleMenu);
 
-            eyeExam.click();
+            // Wait for Booking submenu to appear
+            WebElement booking = wait.until(ExpectedConditions.visibilityOfElementLocated(spectacleBookingMenu));
+            wait.until(ExpectedConditions.elementToBeClickable(booking));
+
+            // Click Booking submenu
+            safeClick(spectacleBookingMenu);
 
         } catch (Exception e) {
-
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click();", eyeExam);
+            throw new RuntimeException("Unable to click Spectacle Booking menu: " + e.getMessage());
         }
     }
 }

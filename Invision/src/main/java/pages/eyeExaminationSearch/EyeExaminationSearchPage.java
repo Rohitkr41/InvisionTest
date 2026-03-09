@@ -56,10 +56,8 @@ public class EyeExaminationSearchPage extends BasePage {
 
             wait.until(ExpectedConditions.invisibilityOf(okBtn));
 
-            System.out.println("Popup Closed");
-
         } catch (TimeoutException e) {
-            // ignore if alert not present
+            // ignore if popup not present
         }
     }
 
@@ -75,9 +73,14 @@ public class EyeExaminationSearchPage extends BasePage {
         WebElement btn = wait.until(
                 ExpectedConditions.elementToBeClickable(advanceSearchIcon));
 
-        btn.click();
+        scrollToElement(btn);
+        safeClick(btn);
 
+        // wait for modal
         wait.until(ExpectedConditions.visibilityOfElementLocated(advanceModal));
+
+        // wait for filters inside modal
+        wait.until(ExpectedConditions.visibilityOfElementLocated(fromDate));
     }
 
 
@@ -95,19 +98,19 @@ public class EyeExaminationSearchPage extends BasePage {
     }
 
 
+    // Stable date selection (works with JS datepickers)
     public void selectDateRange(String from, String to) {
 
         WebElement fromField = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(fromDate));
 
-        fromField.clear();
-        fromField.sendKeys(from);
-
         WebElement toField = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(toDate));
 
-        toField.clear();
-        toField.sendKeys(to);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].value='" + from + "';", fromField);
+        js.executeScript("arguments[0].value='" + to + "';", toField);
     }
 
 
@@ -133,8 +136,9 @@ public class EyeExaminationSearchPage extends BasePage {
         WebElement btn = wait.until(
                 ExpectedConditions.elementToBeClickable(searchBtn));
 
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView(true);", btn);
+        scrollToElement(btn);
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
         try {
 
@@ -142,8 +146,7 @@ public class EyeExaminationSearchPage extends BasePage {
 
         } catch (Exception e) {
 
-            ((JavascriptExecutor) driver)
-                    .executeScript("arguments[0].click();", btn);
+            js.executeScript("arguments[0].click();", btn);
         }
 
         waitAfterSearch();
@@ -152,7 +155,10 @@ public class EyeExaminationSearchPage extends BasePage {
 
     public void clickCancel() {
 
-        wait.until(ExpectedConditions.elementToBeClickable(cancelBtn)).click();
+        WebElement btn = wait.until(
+                ExpectedConditions.elementToBeClickable(cancelBtn));
+
+        safeClick(btn);
     }
 
 
@@ -189,4 +195,39 @@ public class EyeExaminationSearchPage extends BasePage {
         return rows.size() > 0;
     }
 
+
+    // =============================
+    // UTIL METHODS
+    // =============================
+
+    private void scrollToElement(WebElement element) {
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+    }
+
+
+    private void safeClick(WebElement element) {
+
+        int attempts = 0;
+
+        while (attempts < 3) {
+
+            try {
+
+                element.click();
+                return;
+
+            } catch (StaleElementReferenceException | ElementClickInterceptedException e) {
+
+                attempts++;
+
+                ((JavascriptExecutor) driver)
+                        .executeScript("arguments[0].click();", element);
+                return;
+            }
+        }
+
+        throw new RuntimeException("Unable to click element");
+    }
 }
