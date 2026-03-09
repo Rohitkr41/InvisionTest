@@ -95,6 +95,7 @@ public class ReferralRegistrationPage extends BasePage {
     public void selectDiscountRemark(String remark) {
 
         waitForVisibility(discountRemarkDropdown);
+//        waitForVisible(discountRemarkDropdown);
 
         Select dropdown = new Select(driver.findElement(discountRemarkDropdown));
 
