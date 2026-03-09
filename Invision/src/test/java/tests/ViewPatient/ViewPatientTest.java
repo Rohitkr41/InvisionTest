@@ -1,4 +1,3 @@
-
 package tests.ViewPatient;
 
 import org.testng.annotations.Test;
@@ -11,60 +10,120 @@ import utils.ConfigReader;
 
 public class ViewPatientTest extends BaseTest {
 
-    // Common method (Login + Navigation)
+    // Common Login + Navigation
     public ViewPatientPage openViewPatientPage() {
 
-        // Login
         LoginPage login = new LoginPage(driver);
         login.login(
                 ConfigReader.getProperty("username"),
                 ConfigReader.getProperty("password")
         );
 
-        // Open Vision Center
         SidebarPage sidebar = new SidebarPage(driver);
         sidebar.clickVisionCenter();
 
-        // Open View Patient
-        ViewPatientPage viewPatient = new ViewPatientPage(driver);
-        viewPatient.clickViewPatient();
+        ViewPatientPage page = new ViewPatientPage(driver);
+        page.clickViewPatient();
 
-        return viewPatient;
+        return page;
     }
 
 
-    // 1️⃣ Search by Registration Type
+    // ==================================
+    // Search By Registration Type
+    // ==================================
+
     @Test
     public void searchByRegistrationType() {
 
-        ViewPatientPage viewPatient = openViewPatientPage();
+        ViewPatientPage page = openViewPatientPage();
 
-        viewPatient.selectWalkIn();   // or selectReferral() / selectFollowUp()
+        page.selectRegistrationType("Walk-In/New");
 
-        viewPatient.clickSearch();
+        page.clickSearch();
     }
 
 
-    // 2️⃣ Search by Registration Number
+    // ==================================
+    // Search By Registration Number
+    // ==================================
+
     @Test
     public void searchByRegistrationNumber() {
 
-        ViewPatientPage viewPatient = openViewPatientPage();
+        ViewPatientPage page = openViewPatientPage();
 
-        viewPatient.searchByRegistrationNo("IH-IVC-26-0390");
+        page.searchByRegistrationNo("IH-IVC-26-0390");
 
-        viewPatient.clickSearch();
+        page.clickSearch();
     }
 
 
-    // 3️⃣ Open Advance Search
+    // ==================================
+    // Advance Search - By Name
+    // ==================================
+
     @Test
-    public void openAdvanceSearch() {
+    public void searchPatientByName() {
 
-        ViewPatientPage viewPatient = openViewPatientPage();
+        ViewPatientPage page = openViewPatientPage();
 
-        viewPatient.clickAdvanceSearch();
+        page.clickAdvanceSearch();
+
+        page.enterFirstName("SOPHIA");
+
+        page.clickAdvanceSearchButton();
     }
+
+
+    // ==================================
+    // Advance Search - By Mobile
+    // ==================================
+
+    @Test
+    public void searchPatientByMobile() {
+
+        ViewPatientPage page = openViewPatientPage();
+
+        page.clickAdvanceSearch();
+
+        page.enterPhoneNumber("343643646342");
+
+        page.clickAdvanceSearchButton();
+    }
+
+
+    // ==================================
+    // Advance Search - By Village
+    // ==================================
+
+    @Test
+    public void searchPatientByVillage() {
+
+        ViewPatientPage page = openViewPatientPage();
+
+        page.clickAdvanceSearch();
+
+        page.enterVillage("Rampur");
+
+        page.clickAdvanceSearchButton();
+    }
+
+
+    // ==================================
+    // Advance Search - By Date Range
+    // ==================================
+
+    @Test
+    public void searchPatientByDateRange() {
+
+        ViewPatientPage page = openViewPatientPage();
+
+        page.clickAdvanceSearch();
+
+        page.selectDateRange("07-02-2026", "07-03-2026");
+
+        page.clickAdvanceSearchButton();
+    }
+
 }
-
-

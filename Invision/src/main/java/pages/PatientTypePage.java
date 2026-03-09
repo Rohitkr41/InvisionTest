@@ -81,3 +81,5 @@ public class PatientTypePage extends BasePage {
         selectPatientType("Referral");
     }
 }
+
+

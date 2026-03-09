@@ -6,7 +6,10 @@
       <class name="tests.ViewPatient.ViewPatientTest">
         <methods>
           <include name="setUp"/>
+          <include name="searchPatientByDateRange"/>
           <include name="searchByRegistrationNumber"/>
+          <include name="searchByRegistrationType"/>
+          <include name="searchPatientByMobile"/>
         </methods>
       </class> <!-- tests.ViewPatient.ViewPatientTest -->
     </classes>
