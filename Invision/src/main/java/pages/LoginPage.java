@@ -1,4 +1,3 @@
-
 package pages;
 
 import org.openqa.selenium.By;
@@ -14,15 +13,22 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    // ======================
+    // LOCATORS
+    // ======================
+
     private By usernameField = By.cssSelector("input[name='loginModel.Username']");
     private By passwordField = By.cssSelector("input[name='loginModel.Password']");
     private By captchaField = By.cssSelector("input[placeholder='Captcha']");
     private By loginButton = By.xpath("//button[contains(text(),'Login')]");
 
+    // ======================
+    // LOGIN METHOD
+    // ======================
 
     public void login(String username, String password) {
 
-        // Wait until username field visible (page loaded)
+        // Wait until page fully loads
         wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField));
 
         enterText(usernameField, username);
@@ -30,7 +36,7 @@ public class LoginPage extends BasePage {
 
         System.out.println("Enter CAPTCHA manually...");
 
-        // Wait until captcha is entered
+        // Wait until user enters captcha
         wait.until(driver ->
                 driver.findElement(captchaField)
                         .getAttribute("value")
@@ -39,11 +45,14 @@ public class LoginPage extends BasePage {
 
         safeClick(loginButton);
 
+        // Wait until dashboard loads
         waitForUrlContains("adminDashboard");
     }
 
+    // ======================
+    // STABLE TEXT ENTRY
+    // ======================
 
-    // Stable text entry
     private void enterText(By locator, String text) {
 
         int attempts = 0;
@@ -53,10 +62,12 @@ public class LoginPage extends BasePage {
             try {
 
                 WebElement element = wait.until(
-                        ExpectedConditions.elementToBeClickable(locator));
+                        ExpectedConditions.visibilityOfElementLocated(locator));
+
+                wait.until(ExpectedConditions.elementToBeClickable(element));
 
                 ((JavascriptExecutor) driver)
-                        .executeScript("arguments[0].scrollIntoView(true);", element);
+                        .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
 
                 element.clear();
                 element.sendKeys(text);
@@ -66,14 +77,18 @@ public class LoginPage extends BasePage {
             } catch (StaleElementReferenceException e) {
 
                 attempts++;
+
+                if (attempts == 3) {
+                    throw new RuntimeException("Unable to enter text into element: " + locator);
+                }
             }
         }
-
-        throw new RuntimeException("Unable to enter text into element: " + locator);
     }
 
+    // ======================
+    // STABLE CLICK
+    // ======================
 
-    // Stable click
     private void safeClick(By locator) {
 
         int attempts = 0;
@@ -83,21 +98,31 @@ public class LoginPage extends BasePage {
             try {
 
                 WebElement element = wait.until(
-                        ExpectedConditions.elementToBeClickable(locator));
+                        ExpectedConditions.visibilityOfElementLocated(locator));
+
+                wait.until(ExpectedConditions.elementToBeClickable(element));
 
                 ((JavascriptExecutor) driver)
-                        .executeScript("arguments[0].scrollIntoView(true);", element);
+                        .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
 
-                element.click();
+                try {
+                    element.click();
+                } catch (Exception e) {
+                    // JS fallback click
+                    ((JavascriptExecutor) driver)
+                            .executeScript("arguments[0].click();", element);
+                }
 
                 return;
 
             } catch (StaleElementReferenceException e) {
 
                 attempts++;
+
+                if (attempts == 3) {
+                    throw new RuntimeException("Unable to click element: " + locator);
+                }
             }
         }
-
-        throw new RuntimeException("Unable to click element: " + locator);
     }
 }
