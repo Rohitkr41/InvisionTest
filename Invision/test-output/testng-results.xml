@@ -1,125 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="7" passed="7" failed="0" skipped="0">
+<testng-results ignored="0" total="5" passed="4" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-11T17:37:45 IST" name="Default suite" finished-at="2026-03-11T17:39:15 IST" duration-ms="90244">
+  <suite started-at="2026-03-11T23:32:15 IST" name="Default suite" finished-at="2026-03-11T23:33:38 IST" duration-ms="82758">
     <groups>
     </groups>
-    <test started-at="2026-03-11T17:37:45 IST" name="Default test" finished-at="2026-03-11T17:39:15 IST" duration-ms="90244">
-      <class name="tests.billing.BillingReceiptTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:37:45 IST" name="setUp" finished-at="2026-03-11T17:37:49 IST" duration-ms="3952" status="PASS">
+    <test started-at="2026-03-11T23:32:15 IST" name="Default test" finished-at="2026-03-11T23:33:38 IST" duration-ms="82758">
+      <class name="tests.eyeExaminationSearch.EyeExaminationSearchTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:32:15 IST" name="setUp" finished-at="2026-03-11T23:32:25 IST" duration-ms="9712" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:37:49 IST" name="setupPage" finished-at="2026-03-11T17:37:52 IST" duration-ms="3480" status="PASS">
+        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:32:25 IST" name="setupPage" finished-at="2026-03-11T23:32:31 IST" duration-ms="5355" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupPage -->
-        <test-method signature="advanceSearchByDate()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:37:52 IST" name="advanceSearchByDate" finished-at="2026-03-11T17:38:01 IST" duration-ms="8193" status="PASS">
+        <test-method signature="advanceSearchByDate()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:32:31 IST" name="advanceSearchByDate" finished-at="2026-03-11T23:32:31 IST" duration-ms="10" status="FAIL">
+          <exception class="java.lang.Error">
+            <message>
+              <![CDATA[Unresolved compilation problem: 
+The field EyeExaminationSearchPage.advanceSearchButton is not visible
+]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.Error: Unresolved compilation problem: 
+The field EyeExaminationSearchPage.advanceSearchButton is not visible
+
+at tests.eyeExaminationSearch.EyeExaminationSearchTest.advanceSearchByDate(EyeExaminationSearchTest.java:85)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.Error -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- advanceSearchByDate -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:01 IST" name="tearDown" finished-at="2026-03-11T17:38:01 IST" duration-ms="219" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:32:31 IST" name="tearDown" finished-at="2026-03-11T23:32:32 IST" duration-ms="1860" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:01 IST" name="setUp" finished-at="2026-03-11T17:38:04 IST" duration-ms="3613" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:32:32 IST" name="setUp" finished-at="2026-03-11T23:32:36 IST" duration-ms="3598" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:04 IST" name="setupPage" finished-at="2026-03-11T17:38:08 IST" duration-ms="3993" status="PASS">
+        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:32:36 IST" name="setupPage" finished-at="2026-03-11T23:32:42 IST" duration-ms="5663" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupPage -->
-        <test-method signature="advanceSearchByName()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:08 IST" name="advanceSearchByName" finished-at="2026-03-11T17:38:14 IST" duration-ms="5551" status="PASS">
+        <test-method signature="completeSearchTest()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:32:42 IST" name="completeSearchTest" finished-at="2026-03-11T23:33:06 IST" duration-ms="24303" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- advanceSearchByName -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:14 IST" name="tearDown" finished-at="2026-03-11T17:38:14 IST" duration-ms="203" status="PASS">
+        </test-method> <!-- completeSearchTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:06 IST" name="tearDown" finished-at="2026-03-11T23:33:06 IST" duration-ms="161" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:14 IST" name="setUp" finished-at="2026-03-11T17:38:17 IST" duration-ms="3213" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:06 IST" name="setUp" finished-at="2026-03-11T23:33:08 IST" duration-ms="1782" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:17 IST" name="setupPage" finished-at="2026-03-11T17:38:22 IST" duration-ms="5035" status="PASS">
+        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:08 IST" name="setupPage" finished-at="2026-03-11T23:33:11 IST" duration-ms="3278" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupPage -->
-        <test-method signature="advanceSearchByPhone()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:22 IST" name="advanceSearchByPhone" finished-at="2026-03-11T17:38:28 IST" duration-ms="5506" status="PASS">
+        <test-method signature="topSearchByName()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:11 IST" name="topSearchByName" finished-at="2026-03-11T23:33:16 IST" duration-ms="5213" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- advanceSearchByPhone -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:28 IST" name="tearDown" finished-at="2026-03-11T17:38:28 IST" duration-ms="208" status="PASS">
+        </test-method> <!-- topSearchByName -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:16 IST" name="tearDown" finished-at="2026-03-11T23:33:17 IST" duration-ms="174" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:28 IST" name="setUp" finished-at="2026-03-11T17:38:31 IST" duration-ms="3263" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:17 IST" name="setUp" finished-at="2026-03-11T23:33:19 IST" duration-ms="2618" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:31 IST" name="setupPage" finished-at="2026-03-11T17:38:35 IST" duration-ms="3349" status="PASS">
+        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:19 IST" name="setupPage" finished-at="2026-03-11T23:33:22 IST" duration-ms="2698" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupPage -->
-        <test-method signature="advanceSearchByRegistration()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:35 IST" name="advanceSearchByRegistration" finished-at="2026-03-11T17:38:40 IST" duration-ms="5557" status="PASS">
+        <test-method signature="topSearchByRegistration()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:22 IST" name="topSearchByRegistration" finished-at="2026-03-11T23:33:27 IST" duration-ms="5209" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- advanceSearchByRegistration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:40 IST" name="tearDown" finished-at="2026-03-11T17:38:41 IST" duration-ms="220" status="PASS">
+        </test-method> <!-- topSearchByRegistration -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:27 IST" name="tearDown" finished-at="2026-03-11T23:33:27 IST" duration-ms="159" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:41 IST" name="setUp" finished-at="2026-03-11T17:38:44 IST" duration-ms="3503" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:27 IST" name="setUp" finished-at="2026-03-11T23:33:30 IST" duration-ms="2320" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:44 IST" name="setupPage" finished-at="2026-03-11T17:38:48 IST" duration-ms="4054" status="PASS">
+        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:30 IST" name="setupPage" finished-at="2026-03-11T23:33:33 IST" duration-ms="3196" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupPage -->
-        <test-method signature="searchByPatientName()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:48 IST" name="searchByPatientName" finished-at="2026-03-11T17:38:51 IST" duration-ms="3296" status="PASS">
+        <test-method signature="topSearchByStatus()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:33 IST" name="topSearchByStatus" finished-at="2026-03-11T23:33:38 IST" duration-ms="5237" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- searchByPatientName -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:51 IST" name="tearDown" finished-at="2026-03-11T17:38:52 IST" duration-ms="197" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:52 IST" name="setUp" finished-at="2026-03-11T17:38:55 IST" duration-ms="3310" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:55 IST" name="setupPage" finished-at="2026-03-11T17:38:59 IST" duration-ms="3886" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setupPage -->
-        <test-method signature="searchByPhoneNumber()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:38:59 IST" name="searchByPhoneNumber" finished-at="2026-03-11T17:39:02 IST" duration-ms="3222" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- searchByPhoneNumber -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:39:02 IST" name="tearDown" finished-at="2026-03-11T17:39:02 IST" duration-ms="180" status="PASS">
+        </test-method> <!-- topSearchByStatus -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.eyeExaminationSearch.EyeExaminationSearchTest@139982de]" started-at="2026-03-11T23:33:38 IST" name="tearDown" finished-at="2026-03-11T23:33:38 IST" duration-ms="157" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:39:02 IST" name="setUp" finished-at="2026-03-11T17:39:06 IST" duration-ms="3347" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="setupPage()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:39:06 IST" name="setupPage" finished-at="2026-03-11T17:39:12 IST" duration-ms="6202" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setupPage -->
-        <test-method signature="searchByRegistrationNumber()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:39:12 IST" name="searchByRegistrationNumber" finished-at="2026-03-11T17:39:15 IST" duration-ms="3222" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- searchByRegistrationNumber -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.billing.BillingReceiptTest@5542c4ed]" started-at="2026-03-11T17:39:15 IST" name="tearDown" finished-at="2026-03-11T17:39:15 IST" duration-ms="198" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- tests.billing.BillingReceiptTest -->
+      </class> <!-- tests.eyeExaminationSearch.EyeExaminationSearchTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
