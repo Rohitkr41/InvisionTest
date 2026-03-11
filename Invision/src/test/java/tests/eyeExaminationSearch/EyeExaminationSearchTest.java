@@ -1,6 +1,8 @@
+
 package tests.eyeExaminationSearch;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
@@ -11,104 +13,154 @@ import utils.ConfigReader;
 
 public class EyeExaminationSearchTest extends BaseTest {
 
-    public EyeExaminationSearchPage openEyeExaminationPage() {
+    private EyeExaminationSearchPage page;
 
+    @BeforeMethod
+    public void setupPage() {
+
+        // LOGIN
         LoginPage login = new LoginPage(driver);
-
         login.login(
                 ConfigReader.getProperty("username"),
                 ConfigReader.getProperty("password")
         );
 
+        // NAVIGATION
         SidebarPage sidebar = new SidebarPage(driver);
-
         sidebar.clickVisionCenter();
-
         sidebar.openEyeExamination();
 
-        EyeExaminationSearchPage page = new EyeExaminationSearchPage(driver);
-
-        return page;
+        // PAGE OBJECT
+        page = new EyeExaminationSearchPage(driver);
     }
 
-
-    // ============================
-    // Search By Phone
-    // ============================
+    // ======================
+    // TOP SEARCH - REGISTRATION
+    // ======================
 
     @Test
-    public void searchByPhone() {
+    public void topSearchByRegistration() {
 
-        EyeExaminationSearchPage page = openEyeExaminationPage();
+        page.searchByRegistration("IH-IVC-26-0391");
+        page.clickTopSearch();
 
-        page.openAdvanceSearch();
-
-        page.enterPhoneNumber("9999999999");
-
-        page.clickSearch();
-
-        Assert.assertTrue(page.isResultPresent());
+        Assert.assertTrue(page.isResultDisplayed(),
+                "Top Search Registration failed");
     }
 
-
-    // ============================
-    // Search By Date
-    // ============================
+    // ======================
+    // TOP SEARCH - NAME
+    // ======================
 
     @Test
-    public void searchByDate() {
+    public void topSearchByName() {
 
-        EyeExaminationSearchPage page = openEyeExaminationPage();
+        page.searchByName("RUBEENA");
+        page.clickTopSearch();
 
-        page.openAdvanceSearch();
-
-        page.selectDateRange("01-03-2026", "10-03-2026");
-
-        page.clickSearch();
-
-        Assert.assertTrue(page.isResultPresent());
+        Assert.assertTrue(page.isResultDisplayed(),
+                "Top Search Name failed");
     }
 
-
-    // ============================
-    // Search By Screening Status
-    // ============================
+    // ======================
+    // TOP SEARCH - STATUS DROPDOWN
+    // ======================
 
     @Test
-    public void searchByScreeningStatus() {
-
-        EyeExaminationSearchPage page = openEyeExaminationPage();
-
-        page.openAdvanceSearch();
+    public void topSearchByStatus() {
 
         page.selectScreeningStatus("New");
+        page.clickTopSearch();
 
-        page.clickSearch();
-
-        Assert.assertTrue(page.isResultPresent());
+        Assert.assertTrue(page.isResultDisplayed(),
+                "Top Search Status failed");
     }
 
-
-    // ============================
-    // Advance Search (Combined)
-    // ============================
+    // ======================
+    // ADVANCE SEARCH - REGISTRATION
+    // ======================
 
     @Test
-    public void advanceSearchFilter() {
-
-        EyeExaminationSearchPage page = openEyeExaminationPage();
+    public void advanceSearchByRegistration() {
 
         page.openAdvanceSearch();
 
-        page.enterPhoneNumber("9999999999");
+        page.advanceSearch(
+                "IH-IVC-26-0391",
+                null,
+                null,
+                null,
+                null,
+                null
+        );
 
-        page.selectDateRange("01-03-2026", "10-03-2026");
-
-        page.selectScreeningStatus("In-Progress");
-
-        page.clickSearch();
-
-        Assert.assertTrue(page.isResultPresent());
+        Assert.assertTrue(page.isResultDisplayed(),
+                "Advance Search Registration failed");
     }
 
+    // ======================
+    // ADVANCE SEARCH - NAME
+    // ======================
+
+    @Test
+    public void advanceSearchByName() {
+
+        page.openAdvanceSearch();
+
+        page.advanceSearch(
+                null,
+                "RUBEENA",
+                null,
+                null,
+                null,
+                null
+        );
+
+        Assert.assertTrue(page.isResultDisplayed(),
+                "Advance Search Name failed");
+    }
+
+    // ======================
+    // ADVANCE SEARCH - DATE
+    // ======================
+
+    @Test
+    public void advanceSearchByDate() {
+
+        page.openAdvanceSearch();
+
+        page.advanceSearch(
+                null,
+                null,
+                null,
+                null,
+                "10-01-2026",
+                "10-03-2026"
+        );
+
+        Assert.assertTrue(page.isResultDisplayed(),
+                "Advance Search Date failed");
+    }
+
+    // ======================
+    // ADVANCE SEARCH - DATE + PHONE
+    // ======================
+
+    @Test
+    public void advanceSearchByDateAndPhone() {
+
+        page.openAdvanceSearch();
+
+        page.advanceSearch(
+                null,
+                null,
+                null,
+                "1234567891",
+                "10-01-2026",
+                "10-03-2026"
+        );
+
+        Assert.assertTrue(page.isResultDisplayed(),
+                "Advance Search Date + Phone failed");
+    }
 }
