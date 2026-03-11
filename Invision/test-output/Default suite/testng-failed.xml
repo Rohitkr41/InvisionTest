@@ -3,15 +3,20 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.Spectacle.SpectacleBookingTest">
+      <class name="tests.billing.ServiceBillingTest">
         <methods>
+          <include name="searchByPatientName"/>
           <include name="setUp"/>
           <include name="tearDown"/>
+          <include name="advanceSearchByPhone"/>
+          <include name="searchByPhoneNumber"/>
+          <include name="advanceSearchByName"/>
+          <include name="advanceSearchByDate"/>
           <include name="searchByRegistrationNumber"/>
-          <include name="searchByPatientName"/>
-          <include name="searchBySpectacleStatus"/>
+          <include name="advanceSearchByRegistration"/>
+          <include name="setupPage"/>
         </methods>
-      </class> <!-- tests.Spectacle.SpectacleBookingTest -->
+      </class> <!-- tests.billing.ServiceBillingTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

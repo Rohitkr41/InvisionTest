@@ -31,6 +31,16 @@ public class SidebarPage {
 
     private By spectacleMenu = By.xpath("//span[contains(text(),'Spectacle')]");
     private By spectacleBookingMenu = By.xpath("//span[contains(text(),'Spectacle Booking')]");
+    
+    By serviceBilling = By.xpath("//span[contains(text(),'Service Billing')]");
+    By billing = By.xpath("//span[normalize-space()='Billing']");
+
+    public void openServiceBilling() {
+
+        wait.until(ExpectedConditions.elementToBeClickable(serviceBilling)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(billing)).click();
+    }
+
 
     // ======================
     // COMMON SAFE CLICK
