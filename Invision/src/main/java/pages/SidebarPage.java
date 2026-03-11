@@ -34,13 +34,27 @@ public class SidebarPage {
     
     By serviceBilling = By.xpath("//span[contains(text(),'Service Billing')]");
     By billing = By.xpath("//span[normalize-space()='Billing']");
+    By billingReceipt = By.xpath("//*[starts-with(@id,'mod_')]//span[normalize-space()='Billing Receipt']");
 
     public void openServiceBilling() {
 
         wait.until(ExpectedConditions.elementToBeClickable(serviceBilling)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(billing)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(serviceBilling)).click();
     }
+    
+    // ======================
+    // BILLING RECEIPT PAGE
+    // ======================
 
+    public void openBillingReceipt() {
+
+        safeClick(serviceBilling);
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(billingReceipt));
+
+        safeClick(billingReceipt);
+    }
+    
 
     // ======================
     // COMMON SAFE CLICK
