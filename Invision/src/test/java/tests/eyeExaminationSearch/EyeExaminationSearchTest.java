@@ -163,4 +163,8 @@ public class EyeExaminationSearchTest extends BaseTest {
         Assert.assertTrue(page.isResultDisplayed(),
                 "Advance Search Date + Phone failed");
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest

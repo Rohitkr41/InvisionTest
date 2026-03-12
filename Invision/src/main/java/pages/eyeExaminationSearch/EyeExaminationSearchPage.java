@@ -201,6 +201,54 @@ public class EyeExaminationSearchPage extends BasePage {
         }
 
         pause(1);
+<<<<<<< HEAD
+    }
+
+    // =============================
+    // ADVANCE SEARCH
+    // =============================
+
+    public void advanceSearch(String regNo, String name, String status,
+                              String phone, String from, String to) {
+
+        openAdvanceSearch();
+
+        if (regNo != null)
+            searchByRegistration(regNo);
+
+        if (name != null)
+            searchByName(name);
+
+        if (status != null)
+            selectScreeningStatus(status);
+
+        if (phone != null)
+            searchByPhone(phone);
+
+        setDate(from, to);
+
+        pause(1);
+
+        safeClick(advanceSearchButton);
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(resultRow));
+
+        pause(2);
+    }
+
+    // =============================
+    // VERIFY RESULT
+    // =============================
+
+    public boolean isResultDisplayed() {
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(resultRow));
+
+        pause(1);
+
+        return driver.findElements(resultRow).size() > 0;
+=======
+>>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest
     }
 
     // =============================
