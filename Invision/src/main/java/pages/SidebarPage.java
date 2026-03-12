@@ -35,6 +35,18 @@ public class SidebarPage {
     By serviceBilling = By.xpath("//span[contains(text(),'Service Billing')]");
     By billing = By.xpath("//span[normalize-space()='Billing']");
     By billingReceipt = By.xpath("//*[starts-with(@id,'mod_')]//span[normalize-space()='Billing Receipt']");
+    
+ // ======================
+ // REPORT MENU
+ // ======================
+
+ private By reportMenu = By.xpath("//span[normalize-space()='Report']");
+ private By reportDashboard = By.xpath("(//span[normalize-space()='Dashboard'])[2]");
+//======================
+//SURVEY REPORTS
+//======================
+
+private By surveyRegistration = By.xpath("//button[.='Registration']");
 
     public void openServiceBilling() {
 
@@ -123,4 +135,28 @@ public class SidebarPage {
 
         safeClick(spectacleBookingMenu);
     }
+    
+ // ======================
+ // OPEN REPORT DASHBOARD
+ // ======================
+
+ public void openReport() {
+
+     safeClick(reportMenu);
+
+     wait.until(ExpectedConditions
+             .visibilityOfElementLocated(reportDashboard));
+
+     safeClick(reportDashboard);
+ }
+//======================
+//OPEN SURVEY REGISTRATION REPORT
+//======================
+
+public void clickSurveyRegistration() {
+
+  wait.until(ExpectedConditions.visibilityOfElementLocated(surveyRegistration));
+
+  safeClick(surveyRegistration);
+}
 }

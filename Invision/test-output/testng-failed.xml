@@ -3,20 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.billing.BillingReceiptTest">
+      <class name="tests.report.SurveyRegistrationReportTest">
         <methods>
           <include name="setUp"/>
           <include name="tearDown"/>
-          <include name="searchByPatientName"/>
-          <include name="advanceSearchByName"/>
-          <include name="advanceSearchByPhone"/>
+          <include name="verifySurveyRegistrationReport"/>
           <include name="setupPage"/>
-          <include name="searchByRegistrationNumber"/>
-          <include name="searchByPhoneNumber"/>
-          <include name="advanceSearchByRegistration"/>
-          <include name="advanceSearchByDate"/>
         </methods>
-      </class> <!-- tests.billing.BillingReceiptTest -->
+      </class> <!-- tests.report.SurveyRegistrationReportTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

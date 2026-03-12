@@ -1,66 +1,104 @@
 package pages.eyeExaminationSearch;
 
-import java.time.Duration;
-import java.util.List;
-
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 import pages.BasePage;
+import utils.ExcelUtils;
 
 public class EyeExaminationSearchPage extends BasePage {
 
     public EyeExaminationSearchPage(WebDriver driver) {
         super(driver);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pageHeader));
     }
 
     // =============================
-    // LOCATORS
+    // DEMO SPEED CONTROL
     // =============================
 
-    private By advanceSearchIcon = By.xpath("//*[@id='bbssss']/i");
-
-    private By advanceModal = By.xpath("//div[contains(@class,'modal-content')]");
-
-    private By fromDate = By.name("fromDatePres");
-
-    private By toDate = By.name("toDatePres");
-
-    private By phoneNumber = By.name("inputValueofPhoneNo");
-
-    private By screeningStatus = By.id("inputGroupSelect01");
-
-    private By searchBtn = By.xpath("//a[normalize-space()='Search']");
-
-    private By cancelBtn = By.xpath("//button[normalize-space()='Cancel']");
-
-    private By resultRows = By.xpath("//table/tbody/tr");
-
-    private By alertOk = By.xpath("//button[normalize-space()='OK']");
-
-
-    // =============================
-    // ALERT HANDLER
-    // =============================
-
-    public void closeAlertIfPresent() {
-
+    public void pause(int seconds) {
         try {
-
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(2));
-
-            WebElement okBtn = shortWait.until(
-                    ExpectedConditions.elementToBeClickable(alertOk));
-
-            okBtn.click();
-
-            wait.until(ExpectedConditions.invisibilityOf(okBtn));
-
-        } catch (TimeoutException e) {
-            // ignore if popup not present
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
+    // =============================
+    // PAGE HEADER
+    // =============================
+
+    By pageHeader = By.xpath("//h4[.='Eye Examination']");
+
+    // =============================
+    // TOP SEARCH
+    // =============================
+
+    By regSearch = By.name("inputvalueofMedicalNO");
+    By nameSearch = By.name("inputValueofExaminName");
+    By screeningStatus = By.id("inputGroupSelect01");
+
+    By topSearchButton = By.xpath("(//*[@id='top-headings']//form/a[1])");
+
+    // =============================
+    // ADVANCE SEARCH
+    // =============================
+
+    By advanceSearchBtn = By.xpath("//form//a[2]");
+    By phoneSearch = By.name("inputValueofPhoneNo");
+
+    By fromDate = By.name("fromDatePres");
+    By toDate = By.name("toDatePres");
+
+    By advanceSearchButton = By.xpath("//form//a[contains(text(),'Search')]");
+
+    // =============================
+    // RESULT TABLE
+    // =============================
+
+    By resultRow = By.xpath("//table//tbody//tr");
+
+    // =============================
+    // SAFE CLICK
+    // =============================
+
+    public void safeClick(By locator) {
+
+        WebElement element = wait.until(
+                ExpectedConditions.elementToBeClickable(locator));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+
+        pause(1);
+
+        try {
+            element.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver)
+                    .executeScript("arguments[0].click();", element);
+        }
+
+        pause(1);
+    }
+
+    // =============================
+    // CHECK ADVANCE SEARCH OPEN
+    // =============================
+
+    public boolean isAdvanceSearchOpen() {
+
+        try {
+            return driver.findElement(fromDate).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     // =============================
     // OPEN ADVANCE SEARCH
@@ -68,166 +106,158 @@ public class EyeExaminationSearchPage extends BasePage {
 
     public void openAdvanceSearch() {
 
-        closeAlertIfPresent();
+        if (!isAdvanceSearchOpen()) {
 
-        WebElement btn = wait.until(
-                ExpectedConditions.elementToBeClickable(advanceSearchIcon));
+            safeClick(advanceSearchBtn);
 
-        scrollToElement(btn);
-        safeClick(btn);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(fromDate));
 
-        // wait for modal
-        wait.until(ExpectedConditions.visibilityOfElementLocated(advanceModal));
-
-        // wait for filters inside modal
-        wait.until(ExpectedConditions.visibilityOfElementLocated(fromDate));
+            pause(1);
+        }
     }
-
 
     // =============================
-    // FILTER METHODS
+    // TOP SEARCH METHODS
     // =============================
 
-    public void enterPhoneNumber(String phone) {
+    public void searchByRegistration(String regNo) {
 
-        WebElement field = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(phoneNumber));
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(regSearch));
 
-        field.clear();
-        field.sendKeys(phone);
+        element.clear();
+        element.sendKeys(regNo);
+
+        pause(1);
     }
 
+    public void searchByName(String name) {
 
-    // Stable date selection (works with JS datepickers)
-    public void selectDateRange(String from, String to) {
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(nameSearch));
 
-        WebElement fromField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(fromDate));
+        element.clear();
+        element.sendKeys(name);
 
-        WebElement toField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(toDate));
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        js.executeScript("arguments[0].value='" + from + "';", fromField);
-        js.executeScript("arguments[0].value='" + to + "';", toField);
+        pause(1);
     }
-
 
     public void selectScreeningStatus(String status) {
 
-        WebElement dropdown = wait.until(
+        WebElement element = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(screeningStatus));
 
-        Select select = new Select(dropdown);
+        Select dropdown = new Select(element);
+        dropdown.selectByVisibleText(status);
 
-        select.selectByVisibleText(status);
+        pause(1);
     }
 
+    public void clickTopSearch() {
+
+        safeClick(topSearchButton);
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(resultRow));
+
+        pause(2);
+    }
 
     // =============================
-    // CLICK SEARCH
+    // PHONE SEARCH
     // =============================
 
-    public void clickSearch() {
+    public void searchByPhone(String phone) {
 
-        closeAlertIfPresent();
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(phoneSearch));
 
-        WebElement btn = wait.until(
-                ExpectedConditions.elementToBeClickable(searchBtn));
+        element.clear();
+        element.sendKeys(phone);
 
-        scrollToElement(btn);
+        pause(1);
+    }
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+    // =============================
+    // DATE SETTER
+    // =============================
 
-        try {
+    public void setDate(String from, String to) {
 
-            btn.click();
+        if (from != null) {
 
-        } catch (Exception e) {
+            WebElement fromField = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(fromDate));
 
-            js.executeScript("arguments[0].click();", btn);
+            fromField.clear();
+            fromField.sendKeys(from);
         }
 
-        waitAfterSearch();
-    }
+        if (to != null) {
 
+            WebElement toField = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(toDate));
 
-    public void clickCancel() {
-
-        WebElement btn = wait.until(
-                ExpectedConditions.elementToBeClickable(cancelBtn));
-
-        safeClick(btn);
-    }
-
-
-    // =============================
-    // WAIT AFTER SEARCH
-    // =============================
-
-    private void waitAfterSearch() {
-
-        try {
-
-            wait.until(ExpectedConditions.or(
-
-                    ExpectedConditions.presenceOfElementLocated(resultRows),
-
-                    ExpectedConditions.presenceOfElementLocated(alertOk)
-
-            ));
-
-        } catch (Exception e) {}
-
-        closeAlertIfPresent();
-    }
-
-
-    // =============================
-    // RESULT CHECK
-    // =============================
-
-    public boolean isResultPresent() {
-
-        List<WebElement> rows = driver.findElements(resultRows);
-
-        return rows.size() > 0;
-    }
-
-
-    // =============================
-    // UTIL METHODS
-    // =============================
-
-    private void scrollToElement(WebElement element) {
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
-    }
-
-
-    private void safeClick(WebElement element) {
-
-        int attempts = 0;
-
-        while (attempts < 3) {
-
-            try {
-
-                element.click();
-                return;
-
-            } catch (StaleElementReferenceException | ElementClickInterceptedException e) {
-
-                attempts++;
-
-                ((JavascriptExecutor) driver)
-                        .executeScript("arguments[0].click();", element);
-                return;
-            }
+            toField.clear();
+            toField.sendKeys(to);
         }
 
-        throw new RuntimeException("Unable to click element");
+        pause(1);
+    }
+
+    // =============================
+    // ADVANCE SEARCH
+    // =============================
+
+    public void advanceSearch(String regNo, String name, String status,
+                              String phone, String from, String to) {
+
+        openAdvanceSearch();
+
+        if (regNo != null)
+            searchByRegistration(regNo);
+
+        if (name != null)
+            searchByName(name);
+
+        if (status != null)
+            selectScreeningStatus(status);
+
+        if (phone != null)
+            searchByPhone(phone);
+
+        setDate(from, to);
+
+        pause(1);
+
+        safeClick(advanceSearchButton);
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(resultRow));
+
+        pause(2);
+    }
+
+    // =============================
+    // VERIFY RESULT
+    // =============================
+
+    public boolean isResultDisplayed() {
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(resultRow));
+
+        pause(1);
+
+        return driver.findElements(resultRow).size() > 0;
+    }
+    
+    
+    // =============================
+    // EXPORT TABLE DATA
+    // =============================
+
+    public void exportTableDataToExcel(String fileName) {
+
+        String sheetName = "BillingReceiptGrid";
+
+        ExcelUtils.exportTableToExcel(driver, resultRow, fileName, sheetName);
     }
 }
