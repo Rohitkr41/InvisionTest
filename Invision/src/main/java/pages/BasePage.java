@@ -24,17 +24,23 @@ public class BasePage {
 
     By modal = By.cssSelector(".custom-modal");
 
+    // =========================
     // WAIT FOR VISIBILITY
+    // =========================
     protected WebElement waitForVisibility(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    // =========================
     // WAIT FOR CLICKABLE
+    // =========================
     protected WebElement waitForClickable(By locator) {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    // =========================
     // WAIT FOR URL
+    // =========================
     protected void waitForUrlContains(String text) {
         wait.until(ExpectedConditions.urlContains(text));
     }
@@ -48,42 +54,45 @@ public class BasePage {
     }
 
     // =========================
-    // STALE SAFE CLICK + AUTOSCROLL
+    // SMART CLICK (SCROLL + STALE SAFE + JS FALLBACK)
     // =========================
-    protected void click(By locator) {
+   protected void click(By locator) {
 
-        int attempts = 0;
+    int attempts = 0;
 
-        while (attempts < 3) {
+    while (attempts < 3) {
+
+        try {
+
+            waitForLoaderToDisappear();   // ⭐ NEW
+
+            WebElement element = wait.until(
+                    ExpectedConditions.refreshed(
+                            ExpectedConditions.elementToBeClickable(locator)
+                    )
+            );
+
+            scrollToElement(element);
 
             try {
+                element.click();
+            } catch (Exception e) {
 
-                WebElement element = wait.until(
-                        ExpectedConditions.refreshed(
-                                ExpectedConditions.elementToBeClickable(locator)
-                        )
-                );
-
-                scrollToElement(element);
-
-                try {
-                    element.click();
-                } catch (Exception e) {
-                    // JS fallback click
-                    ((JavascriptExecutor) driver)
-                            .executeScript("arguments[0].click();", element);
-                }
-
-                return;
-
-            } catch (StaleElementReferenceException e) {
-                attempts++;
+                ((JavascriptExecutor) driver)
+                        .executeScript("arguments[0].click();", element);
             }
+
+            return;
+
+        } catch (StaleElementReferenceException e) {
+            attempts++;
         }
     }
+}
+
 
     // =========================
-    // STALE SAFE TYPE + AUTOSCROLL
+    // SMART TYPE (SCROLL + STALE SAFE)
     // =========================
     protected void type(By locator, String text) {
 
@@ -113,7 +122,7 @@ public class BasePage {
     }
 
     // =========================
-    // DROPDOWN SELECT + AUTOSCROLL
+    // DROPDOWN SELECT
     // =========================
     protected void selectDropdown(By locator, String visibleText) {
 
@@ -157,13 +166,12 @@ public class BasePage {
                     )
             );
 
-        } catch (Exception e) {
-            // ignore
+        } catch (Exception ignored) {
         }
     }
 
     // =========================
-    // CLOSE SUCCESS ALERT MODAL
+    // CLOSE SUCCESS ALERT
     // =========================
     protected void closeSuccessAlert() {
 
@@ -171,17 +179,11 @@ public class BasePage {
 
             By successOkButton = By.xpath("//*[@id='main']//div[4]//div[2]/button");
 
-            wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(successOkButton)
-            );
+            wait.until(ExpectedConditions.visibilityOfElementLocated(successOkButton));
 
             click(successOkButton);
 
-            wait.until(
-                    ExpectedConditions.invisibilityOfElementLocated(
-                            By.cssSelector(".custom-modal")
-                    )
-            );
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(modal));
 
         } catch (Exception e) {
 
@@ -221,7 +223,7 @@ public class BasePage {
     }
 
     // =============================
-    // GENERIC AUTOCOMPLETE HANDLER
+    // AUTOCOMPLETE HANDLER
     // =============================
     protected void selectFromAutocomplete(By fieldLocator, String value) {
 
@@ -236,7 +238,6 @@ public class BasePage {
         String existingValue = field.getAttribute("value");
 
         if (existingValue != null && !existingValue.trim().isEmpty()) {
-            System.out.println("Field already filled: " + existingValue);
             return;
         }
 
@@ -252,8 +253,9 @@ public class BasePage {
         scrollToElement(option);
 
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(option)).click();
+            option.click();
         } catch (Exception e) {
+
             ((JavascriptExecutor) driver)
                     .executeScript("arguments[0].click();", option);
         }
@@ -262,15 +264,31 @@ public class BasePage {
     // =============================
     // SELECT BY VISIBLE TEXT
     // =============================
-    public void selectByVisibleText(By locator, String text) {
+    protected void selectByVisibleText(By locator, String text) {
 
-        WebElement element = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(locator)
-        );
+        WebElement element = waitForVisibility(locator);
 
         scrollToElement(element);
 
         Select select = new Select(element);
         select.selectByVisibleText(text);
     }
+    
+ // =========================
+ // WAIT FOR LOADER
+ // =========================
+ protected void waitForLoaderToDisappear() {
+
+     try {
+
+         By loader = By.cssSelector(".loader, .spinner, .loading");
+
+         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+
+     } catch (Exception e) {
+
+         // ignore if loader not present
+     }
+ }
+
 }
