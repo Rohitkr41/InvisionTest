@@ -7,13 +7,13 @@ import base.BaseTest;
 import pages.LoginPage;
 import pages.SidebarPage;
 import pages.eyeExaminationSearch.EyeExaminationActionPage;
-import pages.eyeExaminationSearch.ComplaintOcularPage;
+import pages.eyeExaminationSearch.VisualAcuityRefractionPage;
 import utils.ConfigReader;
 
-public class ComplaintOcularTest extends BaseTest {
+public class VisualAcuityRefractionTest extends BaseTest {
 
     private EyeExaminationActionPage actionPage;
-    private ComplaintOcularPage ocularPage;
+    private VisualAcuityRefractionPage visualPage;
 
     @BeforeMethod
     public void setupPage() {
@@ -31,18 +31,20 @@ public class ComplaintOcularTest extends BaseTest {
 
         // PAGE OBJECT
         actionPage = new EyeExaminationActionPage(driver);
-        ocularPage = new ComplaintOcularPage(driver);
+        visualPage = new VisualAcuityRefractionPage(driver);
 
-        // SEARCH AND OPEN PATIENT
-        actionPage.searchByDate("14-03-2026", "15-03-2026");
+        // SEARCH PATIENT
+        actionPage.searchByDate("01-03-2026", "15-03-2026");
+
+        // OPEN PATIENT
         actionPage.clickFirstRowPlusIcon();
     }
 
     @Test
-    public void testComplaintAndOcularHistory() {
+    public void testVisualAcuityRefraction() {
 
-        ocularPage.clickComplaintMenu();
-        ocularPage.addChiefComplaint();
-        ocularPage.addOcularHistory();
+        visualPage.clickVisualAcuityMenu();
+        visualPage.addVisualAcuity();
+        visualPage.addRefraction();
     }
 }

@@ -111,32 +111,45 @@ public class EyeExaminationActionPage extends BasePage {
     // CLICK FIRST ROW PLUS ICON
     // =============================
 
-    public void clickFirstRowPlusIcon() {
+   public void clickFirstRowPlusIcon() {
+    // Wait for table to have at least one row
+    wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(resultRow, 0));
 
-        // wait for table rows
-        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(resultRow, 0));
+    // Retry logic for stale elements
+    int attempts = 0;
+    boolean clicked = false;
 
-        // locator
-        By plusIcon = By.xpath("//*[@id='h-din']//tbody//tr[1]//td[10]//i");
-
-        // wait until visible
-        WebElement icon = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(plusIcon));
-
-        // scroll
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView({block:'center'});", icon);
-
-        // small stability wait
-        wait.until(ExpectedConditions.elementToBeClickable(icon));
-
+    while (attempts < 3 && !clicked) {
         try {
-            icon.click();
-        } 
-        catch (Exception e) {
+            // Re-locate the first row plus icon dynamically
+            By dynamicPlusIcon = By.xpath("//*[@id='h-din']//tbody//tr[1]//td[10]//i[1]");
 
-            ((JavascriptExecutor) driver)
-                    .executeScript("arguments[0].click();", icon);
+            WebElement icon = wait.until(
+                    ExpectedConditions.elementToBeClickable(dynamicPlusIcon));
+
+            // Scroll into view
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].scrollIntoView({block:'center'});", icon);
+
+            // Try normal click
+            icon.click();
+            clicked = true; // success
+        } catch (org.openqa.selenium.StaleElementReferenceException e) {
+            attempts++;
+        } catch (Exception e) {
+            // Fallback: JS click if normal click fails
+            try {
+                By dynamicPlusIcon = By.xpath("//*[@id='h-din']//tbody//tr[1]//td[10]//i[1]");
+                WebElement icon = driver.findElement(dynamicPlusIcon);
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", icon);
+                clicked = true;
+            } catch (Exception ignored) {
+            }
         }
     }
+
+    if (!clicked) {
+        throw new RuntimeException("Failed to click the first row plus icon after 3 attempts");
+    }
+}
 }

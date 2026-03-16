@@ -9,19 +9,20 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">Default suite</th></tr>
-<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">6,795</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">8,698</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">tests.eyeExaminationSearch.ComplaintOcularTest</td><td><a href="#m0">testComplaintAndOcularHistory</a></td><td rowspan="1">1773464891102</td><td rowspan="1">2671</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">tests.eyeExaminationSearch.DiagnosisAdviceTest</td><td><a href="#m0">testDiagnosisAdvice</a></td><td rowspan="1">1773663398940</td><td rowspan="1">55</td></tr></tbody>
 </table>
-<h2>Default test</h2><h3 id="m0">tests.eyeExaminationSearch.ComplaintOcularTest#testComplaintAndOcularHistory</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
-from disconnected: not connected to DevTools
-  (Session info: chrome=146.0.7680.75)
+<h2>Default test</h2><h3 id="m0">tests.eyeExaminationSearch.DiagnosisAdviceTest#testDiagnosisAdvice</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.InvalidSelectorException: invalid selector: Unable to locate an element with the xpath expression //i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)] because of the following error:
+SyntaxError: Failed to execute &apos;evaluate&apos; on &apos;Document&apos;: The string &apos;//i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)]&apos; is not a valid XPath expression.
+  (Session info: chrome=146.0.7680.80)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
 Build info: version: &apos;4.18.1&apos;, revision: &apos;b1d3319b48&apos;
 System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.12&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [c950cb5d9c8f293978c2d18e2e25e810, findElement {value=//span[contains(text(),&apos;Complaint&apos;)], using=xpath}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.75, chrome: {chromedriverVersion: 146.0.7680.80 (f08938029c88..., userDataDir: C:\Users\sumit\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62859}, goog:processID: 16352, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62859/devtoo..., se:cdpVersion: 146.0.7680.75, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: c950cb5d9c8f293978c2d18e2e25e810
+Command: [b18fef7ff6a71aed02f469ab09c1e44e, findElement {value=//i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)], using=xpath}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.80, chrome: {chromedriverVersion: 146.0.7680.80 (f08938029c88..., userDataDir: C:\Users\sumit\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:57716}, goog:processID: 30776, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57716/devtoo..., se:cdpVersion: 146.0.7680.80, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b18fef7ff6a71aed02f469ab09c1e44e
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -40,11 +41,10 @@ Session ID: c950cb5d9c8f293978c2d18e2e25e810
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:350)
 	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:194)
 	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:190)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:627)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:624)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-	at pages.eyeExaminationSearch.ComplaintOcularPage.clickComplaintMenu(ComplaintOcularPage.java:46)
-	at tests.eyeExaminationSearch.ComplaintOcularTest.testComplaintAndOcularHistory(ComplaintOcularTest.java:17)
+	at pages.BasePage.waitForVisibility(BasePage.java:31)
+	at pages.eyeExaminationSearch.DiagnosisAdvicePage.clickDiagnosisMenu(DiagnosisAdvicePage.java:146)
+	at tests.eyeExaminationSearch.DiagnosisAdviceTest.testDiagnosisAdvice(DiagnosisAdviceTest.java:45)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

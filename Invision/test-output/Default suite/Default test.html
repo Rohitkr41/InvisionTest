@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Sat Mar 14 10:38:06 IST 2026</td>
+<td>Started on:</td><td>Mon Mar 16 17:46:30 IST 2026</td>
 </tr>
-<tr><td>Total time:</td><td>6 seconds (6795 ms)</td>
+<tr><td>Total time:</td><td>8 seconds (8698 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,16 +76,17 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.eyeExaminationSearch.ComplaintOcularTest.testComplaintAndOcularHistory()'><b>testComplaintAndOcularHistory</b><br>Test class: tests.eyeExaminationSearch.ComplaintOcularTest</td>
-<td><div><pre>org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
-from disconnected: not connected to DevTools
-  (Session info: chrome=146.0.7680.75)
+<td title='tests.eyeExaminationSearch.DiagnosisAdviceTest.testDiagnosisAdvice()'><b>testDiagnosisAdvice</b><br>Test class: tests.eyeExaminationSearch.DiagnosisAdviceTest</td>
+<td><div><pre>org.openqa.selenium.InvalidSelectorException: invalid selector: Unable to locate an element with the xpath expression //i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)] because of the following error:
+SyntaxError: Failed to execute &apos;evaluate&apos; on &apos;Document&apos;: The string &apos;//i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)]&apos; is not a valid XPath expression.
+  (Session info: chrome=146.0.7680.80)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
 Build info: version: &apos;4.18.1&apos;, revision: &apos;b1d3319b48&apos;
 System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.12&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [c950cb5d9c8f293978c2d18e2e25e810, findElement {value=//span[contains(text(),&apos;Complaint&apos;)], using=xpath}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.75, chrome: {chromedriverVersion: 146.0.7680.80 (f08938029c88..., userDataDir: C:\Users\sumit\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62859}, goog:processID: 16352, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62859/devtoo..., se:cdpVersion: 146.0.7680.75, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: c950cb5d9c8f293978c2d18e2e25e810
+Command: [b18fef7ff6a71aed02f469ab09c1e44e, findElement {value=//i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)], using=xpath}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.80, chrome: {chromedriverVersion: 146.0.7680.80 (f08938029c88..., userDataDir: C:\Users\sumit\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:57716}, goog:processID: 30776, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57716/devtoo..., se:cdpVersion: 146.0.7680.80, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b18fef7ff6a71aed02f469ab09c1e44e
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -104,11 +105,10 @@ Session ID: c950cb5d9c8f293978c2d18e2e25e810
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:350)
 	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:194)
 	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:190)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:627)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:624)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-	at pages.eyeExaminationSearch.ComplaintOcularPage.clickComplaintMenu(ComplaintOcularPage.java:46)
-	at tests.eyeExaminationSearch.ComplaintOcularTest.testComplaintAndOcularHistory(ComplaintOcularTest.java:17)
+	at pages.BasePage.waitForVisibility(BasePage.java:31)
+	at pages.eyeExaminationSearch.DiagnosisAdvicePage.clickDiagnosisMenu(DiagnosisAdvicePage.java:146)
+	at tests.eyeExaminationSearch.DiagnosisAdviceTest.testDiagnosisAdvice(DiagnosisAdviceTest.java:45)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -137,16 +137,17 @@ Session ID: c950cb5d9c8f293978c2d18e2e25e810
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-</pre></div><a href='#' onClick='toggleBox("stack-trace1434015813", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1434015813'><pre>org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
-from disconnected: not connected to DevTools
-  (Session info: chrome=146.0.7680.75)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1154941313", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1154941313'><pre>org.openqa.selenium.InvalidSelectorException: invalid selector: Unable to locate an element with the xpath expression //i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)] because of the following error:
+SyntaxError: Failed to execute &apos;evaluate&apos; on &apos;Document&apos;: The string &apos;//i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)]&apos; is not a valid XPath expression.
+  (Session info: chrome=146.0.7680.80)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalid-selector-exception
 Build info: version: &apos;4.18.1&apos;, revision: &apos;b1d3319b48&apos;
 System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.12&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [c950cb5d9c8f293978c2d18e2e25e810, findElement {value=//span[contains(text(),&apos;Complaint&apos;)], using=xpath}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.75, chrome: {chromedriverVersion: 146.0.7680.80 (f08938029c88..., userDataDir: C:\Users\sumit\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62859}, goog:processID: 16352, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62859/devtoo..., se:cdpVersion: 146.0.7680.75, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: c950cb5d9c8f293978c2d18e2e25e810
+Command: [b18fef7ff6a71aed02f469ab09c1e44e, findElement {value=//i[contains(@class,&apos;fa-sitemap&apos;)]/following-sibling::p&apos;)], using=xpath}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.80, chrome: {chromedriverVersion: 146.0.7680.80 (f08938029c88..., userDataDir: C:\Users\sumit\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:57716}, goog:processID: 30776, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57716/devtoo..., se:cdpVersion: 146.0.7680.80, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b18fef7ff6a71aed02f469ab09c1e44e
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -165,11 +166,10 @@ Session ID: c950cb5d9c8f293978c2d18e2e25e810
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:350)
 	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:194)
 	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:190)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:627)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:624)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-	at pages.eyeExaminationSearch.ComplaintOcularPage.clickComplaintMenu(ComplaintOcularPage.java:46)
-	at tests.eyeExaminationSearch.ComplaintOcularTest.testComplaintAndOcularHistory(ComplaintOcularTest.java:17)
+	at pages.BasePage.waitForVisibility(BasePage.java:31)
+	at pages.eyeExaminationSearch.DiagnosisAdvicePage.clickDiagnosisMenu(DiagnosisAdvicePage.java:146)
+	at tests.eyeExaminationSearch.DiagnosisAdviceTest.testDiagnosisAdvice(DiagnosisAdviceTest.java:45)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -199,8 +199,8 @@ Session ID: c950cb5d9c8f293978c2d18e2e25e810
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
 </pre></div></td>
-<td>2</td>
-<td>tests.eyeExaminationSearch.ComplaintOcularTest@327514f</td></tr>
+<td>0</td>
+<td>tests.eyeExaminationSearch.DiagnosisAdviceTest@5b12b668</td></tr>
 </table><p>
 </body>
 </html>

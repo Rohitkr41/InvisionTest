@@ -3,13 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.eyeExaminationSearch.ComplaintOcularTest">
+      <class name="tests.eyeExaminationSearch.DiagnosisAdviceTest">
         <methods>
           <include name="setUp"/>
           <include name="tearDown"/>
-          <include name="testComplaintAndOcularHistory"/>
+          <include name="setupPage"/>
+          <include name="testDiagnosisAdvice"/>
         </methods>
-      </class> <!-- tests.eyeExaminationSearch.ComplaintOcularTest -->
+      </class> <!-- tests.eyeExaminationSearch.DiagnosisAdviceTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -7,13 +7,13 @@ import base.BaseTest;
 import pages.LoginPage;
 import pages.SidebarPage;
 import pages.eyeExaminationSearch.EyeExaminationActionPage;
-import pages.eyeExaminationSearch.ComplaintOcularPage;
+import pages.eyeExaminationSearch.DiagnosisAdvicePage;
 import utils.ConfigReader;
 
-public class ComplaintOcularTest extends BaseTest {
+public class DiagnosisAdviceTest extends BaseTest {
 
     private EyeExaminationActionPage actionPage;
-    private ComplaintOcularPage ocularPage;
+    private DiagnosisAdvicePage diagnosisPage;
 
     @BeforeMethod
     public void setupPage() {
@@ -31,18 +31,29 @@ public class ComplaintOcularTest extends BaseTest {
 
         // PAGE OBJECT
         actionPage = new EyeExaminationActionPage(driver);
-        ocularPage = new ComplaintOcularPage(driver);
+        diagnosisPage = new DiagnosisAdvicePage(driver);
 
-        // SEARCH AND OPEN PATIENT
-        actionPage.searchByDate("14-03-2026", "15-03-2026");
+        // SEARCH PATIENT
+        actionPage.searchByDate("01-03-2026", "15-03-2026");
         actionPage.clickFirstRowPlusIcon();
+        
     }
 
     @Test
-    public void testComplaintAndOcularHistory() {
+    public void testDiagnosisAdvice() {
 
-        ocularPage.clickComplaintMenu();
-        ocularPage.addChiefComplaint();
-        ocularPage.addOcularHistory();
+    	diagnosisPage.clickDiagnosisMenu();
+    	diagnosisPage.addDiagnosis();
+
+    	diagnosisPage.addTeleconsultation();
+
+    	diagnosisPage.addMedicineDetails();
+
+    	diagnosisPage.addGlassesDetails();
+
+    	diagnosisPage.addHospitalReferralDetails();
+
+    	diagnosisPage.completeExamination();
+
     }
 }
