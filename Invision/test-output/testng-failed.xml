@@ -3,14 +3,27 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
+<<<<<<< HEAD
       <class name="tests.eyeExaminationSearch.DiagnosisAdviceTest">
+=======
+      <class name="tests.eyeExaminationSearch.EyeExaminationSearchTest">
+>>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest
         <methods>
           <include name="setUp"/>
           <include name="tearDown"/>
+<<<<<<< HEAD
           <include name="setupPage"/>
           <include name="testDiagnosisAdvice"/>
+=======
+          <include name="advanceSearchByDate"/>
+          <include name="setupPage"/>
+>>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest
         </methods>
+<<<<<<< HEAD
       </class> <!-- tests.eyeExaminationSearch.DiagnosisAdviceTest -->
+=======
+      </class> <!-- tests.eyeExaminationSearch.EyeExaminationSearchTest -->
+>>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
