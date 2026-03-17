@@ -1,20 +1,19 @@
-
 package tests.eyeExaminationSearch;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
+import dev.failsafe.internal.util.Assert;
 import pages.LoginPage;
 import pages.SidebarPage;
+import pages.eyeExaminationSearch.EyeExaminationActionPage;
 import pages.eyeExaminationSearch.EyeExaminationSearchPage;
 import utils.ConfigReader;
-import utils.ExcelUtils;
 
-public class EyeExaminationSearchTest extends BaseTest {
+public class EyeExaminationActionTest extends BaseTest {
 
-    private EyeExaminationSearchPage page;
+    private EyeExaminationActionPage page;
 
     @BeforeMethod
     public void setupPage() {
@@ -26,127 +25,25 @@ public class EyeExaminationSearchTest extends BaseTest {
                 ConfigReader.getProperty("password")
         );
 
-        // NAVIGATION
+        // OPEN EYE EXAMINATION MODULE
         SidebarPage sidebar = new SidebarPage(driver);
-        sidebar.clickVisionCenter();
         sidebar.openEyeExamination();
 
-        // PAGE OBJECT
-        page = new EyeExaminationSearchPage(driver);
+        // INITIALIZE PAGE OBJECT
+        page = new EyeExaminationActionPage(driver);
     }
 
-    // ======================
-    // TOP SEARCH - REGISTRATION
-    // ======================
-
     @Test
-    public void topSearchByRegistration() {
+    public void testAdvanceSearchAndClickPlus() {
 
-        page.searchByRegistration("IH-IVC-26-0391");
-        page.clickTopSearch();
+        // SEARCH USING DATE FILTER
+        page.searchByDate("13-03-2026", "15-03-2026");
 
-        Assert.assertTrue(page.isResultDisplayed(),
-                "Top Search Registration failed");
-    }
+        // CLICK FIRST ROW PLUS ICON
+        page.clickFirstRowPlusIcon();
 
-    // ======================
-    // TOP SEARCH - NAME
-    // ======================
-
-    @Test
-    public void topSearchByName() {
-
-        page.searchByName("RUBEENA");
-        page.clickTopSearch();
-
-        Assert.assertTrue(page.isResultDisplayed(),
-                "Top Search Name failed");
-    }
-
-    // ======================
-    // TOP SEARCH - STATUS DROPDOWN
-    // ======================
-
-    @Test
-    public void topSearchByStatus() {
-
-        page.selectScreeningStatus("New");
-        page.clickTopSearch();
-
-        Assert.assertTrue(page.isResultDisplayed(),
-                "Top Search Status failed");
-    }
-
-    // ======================
-    // ADVANCE SEARCH - REGISTRATION
-    // ======================
-
-    @Test
-    public void advanceSearchByRegistration() {
-
-        page.openAdvanceSearch();
-
-        page.advanceSearch(
-                "IH-IVC-26-0391",
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-
-        Assert.assertTrue(page.isResultDisplayed(),
-                "Advance Search Registration failed");
-    }
-
-    // ======================
-    // ADVANCE SEARCH - NAME
-    // ======================
-
-    @Test
-    public void advanceSearchByName() {
-
-        page.openAdvanceSearch();
-
-        page.advanceSearch(
-                null,
-                "RUBEENA",
-                null,
-                null,
-                null,
-                null
-        );
-
-        Assert.assertTrue(page.isResultDisplayed(),
-                "Advance Search Name failed");
-    }
-
-
-//    // ======================
-//    // ADVANCE SEARCH - DATE
-//    // ======================
-
-    @Test
-    public void advanceSearchByDate() {
-
-        page.advanceSearch(
-                null,
-                null,
-                null,
-                null,
-                "10-01-2026",
-                "10-03-2026"
-        );
-
-        boolean result = page.isResultDisplayed();
-
-        Assert.assertTrue(result,
-                "Advance Search Date failed");
-
-        if (result) {
-
-            page.exportTableDataToExcel("EyeExamDateSearch");
-        }
+        // DEBUG (OPTIONAL)
+        System.out.println("Plus icon clicked successfully");
     }
 
 }
