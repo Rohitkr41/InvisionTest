@@ -121,14 +121,14 @@ public class EyeExaminationSearchTest extends BaseTest {
                 "Advance Search Name failed");
     }
 
-    // ======================
-    // ADVANCE SEARCH - DATE
-    // ======================
+
+//    // ======================
+//    // ADVANCE SEARCH - DATE
+//    // ======================
 
     @Test
     public void advanceSearchByDate() {
 
-<<<<<<< HEAD
         page.advanceSearch(
                 null,
                 null,
@@ -149,69 +149,4 @@ public class EyeExaminationSearchTest extends BaseTest {
         }
     }
 
-
-    // ======================
-    // ADVANCE SEARCH - DATE + PHONE
-    // ======================
-
-    @Test
-    public void advanceSearchByDateAndPhone() {
-
-        page.openAdvanceSearch();
-
-        page.advanceSearch(
-                null,
-                null,
-                null,
-                "1234567891",
-                "10-01-2026",
-                "10-03-2026"
-        );
-
-        Assert.assertTrue(page.isResultDisplayed(),
-                "Advance Search Date + Phone failed");
-    }
 }
-=======
-        page.openAdvanceSearch();
-
-        page.advanceSearch(
-                null,
-                null,
-                null,
-                null,
-                "10-01-2026",
-                "10-03-2026"
-        );
-
-        Assert.assertTrue(page.isResultDisplayed(),
-                "Advance Search Date failed");
-    }
-
-    // ======================
-    // ADVANCE SEARCH - DATE + PHONE
-    // ======================
-
-    @Test
-    public void advanceSearchByDateAndPhone() {
-
-        page.openAdvanceSearch();
-
-        page.advanceSearch(
-                null,
-                null,
-                null,
-                "1234567891",
-                "10-01-2026",
-                "10-03-2026"
-        );
-
-        Assert.assertTrue(page.isResultDisplayed(),
-                "Advance Search Date + Phone failed");
-    }
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest
->>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest
