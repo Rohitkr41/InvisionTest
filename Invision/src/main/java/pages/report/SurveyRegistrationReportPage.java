@@ -81,8 +81,4 @@ public class SurveyRegistrationReportPage {
 
         return driver.findElements(tableRows).size();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch 'invision' of https://github.com/Rohitkr41/InvisionTest

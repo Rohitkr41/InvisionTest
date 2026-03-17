@@ -41,17 +41,31 @@ public class DiagnosisAdviceTest extends BaseTest {
 
     @Test
     public void testDiagnosisAdvice() {
+   
+    	diagnosisPage.openDiagnosisMenu();
+    	
+    	diagnosisPage.addDiagnosis("Conjunctival cysts","Initial Stage");
 
-    	diagnosisPage.clickDiagnosisMenu();
-    	diagnosisPage.addDiagnosis();
+    	diagnosisPage.addTeleconsultation(
+    	        "V3M",
+    	        "Invision Hospital",
+    	        "Doctor");
 
-    	diagnosisPage.addTeleconsultation();
+    	diagnosisPage.addMedicine(
+    	        "Drop",
+    	        "Paracetamol",
+    	        "10ml",
+    	        "Twice a day",
+    	        "5",
+    	        "Use regularly");
 
-    	diagnosisPage.addMedicineDetails();
+    	diagnosisPage.addGlasses("Single lens");
 
-    	diagnosisPage.addGlassesDetails();
-
-    	diagnosisPage.addHospitalReferralDetails();
+    	diagnosisPage.addHospitalReferral(
+    	        "Eye operation",
+    	        "Invision hospital",
+    	        "20-03-2026",
+    	        "Urgent Case");
 
     	diagnosisPage.completeExamination();
 

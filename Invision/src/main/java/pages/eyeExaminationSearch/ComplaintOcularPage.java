@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
+import utils.AlertConfirmationPopup;
+
 import java.util.List;
 
 public class ComplaintOcularPage extends BasePage {
@@ -98,11 +100,11 @@ public class ComplaintOcularPage extends BasePage {
     // 1️⃣ Enter Ocular History
     WebElement history = waitUntilModalGoneAndVisible(ocularHistoryField);
     history.clear();
-    history.sendKeys("Glaucoma");
+    history.sendKeys("Conjunctivitis");
 
     // Optional: click suggestion if exists
     try {
-        By suggestion = By.xpath("//li[contains(text(),'Glaucoma')]");
+        By suggestion = By.xpath("//li[contains(text(),'Conjunctivitis')]");
         WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(suggestion));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
         wait.until(ExpectedConditions.elementToBeClickable(option)).click();
@@ -132,32 +134,25 @@ public class ComplaintOcularPage extends BasePage {
     remarks.clear();
     remarks.sendKeys("No major issue");
 
-    // 5️⃣ Click Save (after modal gone)
     WebElement save = waitUntilModalGoneAndVisible(saveOcularHistory);
     clickWhenModalGone(save);
 
+    // 🔥 Force wait for DOM update (important)
+    try { Thread.sleep(800); } catch (Exception ignored) {}
+
+    handleAnyPopup();
+
+    
     // 6️⃣ Final wait for any modal/alert
     waitUntilModalGone();
+    
+    
 }
 
     // =============================
     // MODAL HANDLING
     // =============================
-//    private void waitUntilModalGone() {
-//        try {
-//            List<WebElement> modals = driver.findElements(modal);
-//            for (WebElement m : modals) {
-//                if (m.isDisplayed()) {
-//                    List<WebElement> okButtons = m.findElements(By.xpath(".//button[normalize-space()='OK']"));
-//                    if (!okButtons.isEmpty()) {
-//                        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", okButtons.get(0));
-//                        wait.until(ExpectedConditions.invisibilityOf(m));
-//                    }
-//                }
-//            }
-//        } catch (Exception ignored) {}
-//    }
-
+ 
     private WebElement waitUntilModalGoneAndVisible(By locator) {
         waitUntilModalGone();
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -176,4 +171,53 @@ public class ComplaintOcularPage extends BasePage {
             attempts++;
         }
     }
+    
+    private void handleAnyPopup() {
+
+        By alertMsg = By.xpath(
+                "//div[contains(@class,'alert') and not(contains(@style,'display: none'))] | " +
+                "//div[contains(@class,'swal2-popup')] | " +
+                "//div[contains(@class,'toast')] | " +
+                "//p[contains(text(),'successfully') or contains(text(),'exist') or contains(text(),'Ocular')]"
+        );
+
+        By okBtn = By.xpath("(//button[normalize-space()='OK' or normalize-space()='Ok'])[3]");
+        By yesBtn = By.xpath("//button[normalize-space()='Yes']");
+
+        for (int i = 0; i < 5; i++) {
+            try {
+                WebElement msg = driver.findElement(alertMsg);
+
+                if (msg.isDisplayed()) {
+                    System.out.println("✅ Popup Found: " + msg.getText());
+
+                    // Try OK
+                    try {
+                        WebElement ok = driver.findElement(okBtn);
+                        if (ok.isDisplayed()) {
+                            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", ok);
+                            return;
+                        }
+                    } catch (Exception ignored) {}
+
+                    // Try YES
+                    try {
+                        WebElement yes = driver.findElement(yesBtn);
+                        if (yes.isDisplayed()) {
+                            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", yes);
+                            return;
+                        }
+                    } catch (Exception ignored) {}
+
+                    return;
+                }
+
+            } catch (Exception e) {
+                try { Thread.sleep(400); } catch (Exception ignored) {}
+            }
+        }
+
+        System.out.println("⚠️ No popup detected");
+    }
+
 }
