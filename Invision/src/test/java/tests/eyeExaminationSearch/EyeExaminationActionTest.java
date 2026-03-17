@@ -4,9 +4,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
+import dev.failsafe.internal.util.Assert;
 import pages.LoginPage;
 import pages.SidebarPage;
 import pages.eyeExaminationSearch.EyeExaminationActionPage;
+import pages.eyeExaminationSearch.EyeExaminationSearchPage;
 import utils.ConfigReader;
 
 public class EyeExaminationActionTest extends BaseTest {
@@ -43,4 +45,5 @@ public class EyeExaminationActionTest extends BaseTest {
         // DEBUG (OPTIONAL)
         System.out.println("Plus icon clicked successfully");
     }
+
 }
