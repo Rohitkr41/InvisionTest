@@ -7,369 +7,285 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import pages.BasePage;
+import utils.AlertConfirmationPopup;
 
 public class DiagnosisAdvicePage extends BasePage {
 
     public DiagnosisAdvicePage(WebDriver driver) {
         super(driver);
     }
-
+    
+ 
     // =============================
     // MENU
     // =============================
 
-//    By diagnosisMenu = By.xpath("//p[contains(text(),'Diagnosis')]");
-    By diagnosisMenu = By.xpath("//i[contains(@class,'fa-sitemap')]/following-sibling::p')]");
+    private By diagnosisMenu = By.xpath("//p[contains(text(),'Diagnosis')]");
 
     // =============================
-    // DIAGNOSIS SECTION
+    // DIAGNOSIS
     // =============================
 
-    By diagnosisField = By.xpath("//label[contains(text(),'Diagnosis')]/following::input[1]");
-
-    By eyeRE = By.name("RM_optionsRadiosEye");
-    By eyeLE = By.xpath("//*[@id=\"RM_rdbLE\"]");
-    By eyeBE = By.xpath("//*[@id=\"box-main\"]//div[2]/div/div[2]//div[3]/label");
-
-    By remarks = By.xpath("//label[contains(text(),'Remarks')]/following::input[1]");
-
-    By saveDiagnosisButton = By.xpath("//button[contains(text(),'Save Diagnosis')]");
+    private By diagnosisField = By.xpath("//label[contains(text(),'Diagnosis')]/following::input[1]");
+    private By eyeRE = By.xpath("(//input[@name='RM_optionsRadiosEye' and @id='RM_rdbRE'])[1]");
+    private	By eyeLE = By.xpath("//input[@name='RM_optionsRadiosEye' and @id='RM_rdbLE']");
+    private By remarks = By.xpath("//label[contains(text(),'Remarks')]/following::input[1]");
+    private By saveDiagnosisBtn = By.xpath("//button[contains(text(),'Save Diagnosis')]");
 
     // =============================
     // TELECONSULTATION
     // =============================
 
-    By teleYes = By.xpath("(//*[@id='RM_rdbRE'])[2]");
-    By teleNo = By.xpath("(//*[@id='RM_rdbRE'])[3]");
-
-    By teleName = By.xpath("//*[@id=\"box-main\"]//div[2]//div[3]//div[2]/div/input");
-    By organization = By.xpath("(//*[@id=\"box-main\"]/div//div[3]/div/input)[1]");
-    By designation = By.xpath("//*[@id=\"box-main\"]/div//div[4]/div/input");
-    By teleconsSaveBtn = By.xpath("(//button[contains(text(),'Save') and not(contains(text(),'Diagnosis'))])[1]");
+    private By teleYes = By.xpath("(//input[@type='radio'])[2]");
+    private By teleName = By.xpath("//label[contains(text(),'Name')]/following::input[1]");
+    private By organization = By.xpath("//label[contains(text(),'Organization')]/following::input[1]");
+    private By designation = By.xpath("//label[contains(text(),'Designation')]/following::input[1]");
+    private By teleSaveBtn = By.xpath("(//button[contains(text(),'Save')])[1]");
 
     // =============================
-    // PRESCRIBE MEDICINE
+    // MEDICINE
     // =============================
 
-    By prescribeMedicineCheckbox = By.xpath("(//*[@id=\"flexPresMedicine\"])[1]");
-
-    By drugForm = By.xpath("(//*[@id=\"box-main\"]//div[2]//div[1]/div/select)[1]");
-    By drugName = By.xpath("//*[@id=\"box-main\"]/div/div[3]//div[2]/div/input");
-    By dosageStrength = By.xpath("//*[@id=\"box-main\"]/div/div[3]//div[3]/div/input");
-
-    By eyeREMed = By.xpath("//*[@id=\"RM_rdbREs\"]");
-    By eyeLEMed = By.xpath("//*[@id=\"RM_rdbLEs\"]");
-    By eyeBEMed = By.xpath("//input[@value='BE']");
-    By eyeNA = By.xpath("//input[@value='NA']");
-
-    By dosageInstructions = By.xpath("//label[contains(text(),'Dosage Instructions')]/following::input[1]");
-
-    By period = By.xpath("//label[contains(text(),'Period')]/following::input[1]");
-    By duration = By.xpath("(//*[@id=\"box-main\"]//div[2]//div[1]/div/select)[2]");
-
-    By specialInstructions = By.xpath("//label[contains(text(),'Special Instructions')]/following::input[1]");
-
-    By addMedicineButton = By.xpath("//button[contains(text(),'Add Medicine')]");
-    
-	 // =============================
-	 // GLASSES SECTION
-	 // =============================
-	
-	 By glassesCheckbox = By.xpath("//label[contains(text(),'Glasses')]/preceding-sibling::input");
-	
-	 By continueSame = By.xpath("//label[contains(text(),'Continue Same')]/preceding-sibling::input");
-	
-	 By prescribeNew = By.xpath("//label[contains(text(),'Prescribe New')]/preceding-sibling::input");
-	
-	 By lensesField = By.xpath("//label[contains(text(),'Lenses')]/following::input[1]");
-	
-	 By glassesSaveBtn = By.xpath("(//button[contains(text(),'Save')])[2]");
-	 
-	// =============================
-	// HOSPITAL REFERRAL
-	// =============================
-
-	By hospitalReferralCheckbox = By.xpath("//label[contains(text(),'Hospital Referral')]/preceding-sibling::input");
-
-	By referralFor = By.xpath("//label[contains(text(),'Referral For')]/following::input[1]");
-
-	By referralCenter = By.xpath("//label[contains(text(),'Referral Center')]/following::select[1]");
-
-	By expectedVisitDate = By.xpath("//label[contains(text(),'Expected Visit Date')]/following::input[1]");
-
-	By referralRemarks = By.xpath("//label[contains(text(),'Remarks')]/following::input[1]");
-
-	By referralSaveBtn = By.xpath("(//button[contains(text(),'Save')])[3]");
-	
-	//hospital method
-	
-	public void enableHospitalReferral() {
-	    click(hospitalReferralCheckbox);
-	}
-
-	public void enterReferralFor(String value) {
-	    type(referralFor, value);
-	}
-
-	public void selectReferralCenter(String center) {
-	    selectByVisibleText(referralCenter, center);
-	}
-
-	public void enterExpectedVisitDate(String date) {
-	    type(expectedVisitDate, date);
-	}
-
-	public void enterReferralRemarks(String value) {
-	    type(referralRemarks, value);
-	}
-
-	public void saveHospitalReferral() {
-	    click(referralSaveBtn);
-	    closeSuccessAlert();
-	}
-
-
+//    private By prescribeMedicineCheckbox = By.xpath("//input[@type='checkbox' and contains(@id,'Pres')]");
+    private By prescribeMedicineCheckbox = By.xpath("//label[contains(text(),'Prescribe')]/preceding-sibling::input");
+    private By drugForm = By.xpath("//label[contains(text(),'Drug Form')]/following::select[1]");
+    private By drugName = By.xpath("//label[contains(text(),'Drug Name')]/following::input[1]");
+    private By dosageStrength = By.xpath("//label[contains(text(),'Dosage Strength')]/following::input[1]");
+    private By eyeREMed = By.id("RM_rdbREs");
+    private By dosageInstructions = By.xpath("//label[contains(text(),'Dosage Instructions')]/following::input[1]");
+    private By period = By.xpath("//label[contains(text(),'Period')]/following::input[1]");
+    private By specialInstructions = By.xpath("//label[contains(text(),'Special Instructions')]/following::input[1]");
+    private By addMedicineBtn = By.xpath("//button[contains(text(),'Add Medicine')]");
 
     // =============================
-    // COMPLETE BUTTON
+    // GLASSES
     // =============================
 
-    By saveCompleteExam = By.xpath("//button[contains(text(),'Save & Complete Examination')]");
+    private By glassesCheckbox = By.xpath("//label[contains(text(),'Glasses')]");
+    private By prescribeNew = By.id("RM_rdbPrescribeNEW");
+    private By lensesField = By.xpath("//label[contains(text(),'Lenses')]/following::input[1]");
+    private By glassesSaveBtn = By.xpath("(//button[contains(text(),'Save')])[2]");
 
     // =============================
-    // CLICK MENU
+    // HOSPITAL REFERRAL
     // =============================
 
-
-    public void clickDiagnosisMenu() {
-
-        waitForVisibility(diagnosisMenu);
-
-        ((JavascriptExecutor) driver)
-                .executeScript("arguments[0].scrollIntoView(true);", driver.findElement(diagnosisMenu));
-
-        click(diagnosisMenu);
-    }
-
-
-
-
-
-    // =============================
-    // DIAGNOSIS AUTOCOMPLETE
-    // =============================
-
-  public void selectDiagnosis(String diagnosis) {
-    selectFromAutocomplete(diagnosisField, diagnosis);
-}
-
-
-    // =============================
-    // DIAGNOSIS METHODS
-    // =============================
-
-    public void selectEyeRE() {
-        click(eyeRE);
-    }
-
-    public void enterRemarks(String value) {
-        type(remarks, value);
-    }
-
-    public void saveDiagnosis() {
-        click(saveDiagnosisButton);
-        waitForModalToDisappear();
-        closeSuccessAlert();
-    }
-
-    // =============================
-    // TELECONSULTATION METHODS
-    // =============================
-
-    public void selectTeleconsultationYes() {
-        click(teleYes);
-    }
-
-    public void enterTeleconsultantName(String value) {
-        type(teleName, value);
-    }
-
-    public void enterOrganizationName(String value) {
-        type(organization, value);
-    }
-
-    public void enterDesignation(String value) {
-        type(designation, value);
-    }
-    
-    public void clickTeleconsultationSave() {
-        click(teleconsSaveBtn);
-        waitForModalToDisappear();
-        closeSuccessAlert();
-    }
-
-
-    // =============================
-    // PRESCRIBE MEDICINE
-    // =============================
-    
-    public void clickPrescribeMedicineCheckbox() {
-        click(prescribeMedicineCheckbox);
-    }
-    
-    public void selectDrugForm(String form) {
-        selectByVisibleText(drugForm, form);
-    }
-
-
-    public void enterDrugName(String value) {
-        type(drugName, value);
-    }
-
-    public void enterDosageStrength(String value) {
-        type(dosageStrength, value);
-    }
-
-    public void enterDosageInstructions(String value) {
-        type(dosageInstructions, value);
-    }
-
-    public void enterPeriod(String value) {
-        type(period, value);
-    }
-    public void selectMedicineEyeRE() {
-        click(eyeREMed);
-    }
-
-
-    public void enterSpecialInstructions(String value) {
-        type(specialInstructions, value);
-    }
-
-    public void addMedicine() {
-        click(addMedicineButton);
-    }
+    private By hospitalReferralCheckbox = By.xpath("//label[contains(text(),'Hospital Referral')]/preceding-sibling::input");
+    private By referralForDropdown = By.id("referralForInput");
+    private By referralCenter = By.xpath("//label[contains(text(),'Referal Center')]/following::select[1]");
+    private By expectedVisitDate = By.xpath("//label[contains(text(),'Expected Visit Date')]/following::input[1]");
+    private By referralRemarks = By.xpath("(//label[contains(text(),'Remarks')]/following::input[1])[2]");
+    private By referralSaveBtn = By.xpath("(//button[contains(text(),'Save')])[4]");
 
     // =============================
     // COMPLETE EXAMINATION
     // =============================
 
-    public void completeExamination() {
-        click(saveCompleteExam);
+    private By saveCompleteExam = By.xpath("//button[contains(text(),'Save & Complete Examination')]");
+
+    // =========================================================
+    // SCROLL HELPER
+    // =========================================================
+
+    private void scrollTo(By locator) {
+
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(locator));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+    }
+
+    // =========================================================
+    // MENU
+    // =========================================================
+
+    public void openDiagnosisMenu() {
+
+        scrollTo(diagnosisMenu);
+
+        click(diagnosisMenu);
+    }
+
+    // =========================================================
+    // DIAGNOSIS
+    // =========================================================
+
+    public void addDiagnosis(String diagnosis, String remarkText) {
+
+        // Wait for diagnosis field visible
+        waitForVisibility(diagnosisField);
+
+        // Fill diagnosis only if empty
+        String existingDiagnosis = driver.findElement(diagnosisField).getAttribute("value");
+        if (existingDiagnosis == null || existingDiagnosis.trim().isEmpty()) {
+            selectFromAutocomplete(diagnosisField, diagnosis);
+            // Ensure value entered
+            wait.until(ExpectedConditions.attributeContains(diagnosisField, "value", diagnosis));
+        }
+
+        // Select RE radio if not selected
+        WebElement reRadio = wait.until(ExpectedConditions.elementToBeClickable(eyeRE));
+        if (!reRadio.isSelected()) {
+            reRadio.click();
+        }
+
+        // Enter remarks
+        fastType(remarks, remarkText);
+
+        // Click Save button
+        WebElement saveBtn = wait.until(ExpectedConditions.elementToBeClickable(saveDiagnosisBtn));
+        saveBtn.click();
+
+        // Handle popup (Success / Already Exist / Error)
+        AlertConfirmationPopup popup = new AlertConfirmationPopup(driver);
+        String message = popup.handlePopupFast();
+
+        System.out.println("Alert: " + message);
+    }
+
+    // =========================================================
+    // TELECONSULTATION
+    // =========================================================
+
+    public void addTeleconsultation(String name, String org, String role) {
+
+        scrollTo(teleYes);
+
+        click(teleYes);
+
+        type(teleName, name);
+
+        type(organization, org);
+
+        type(designation, role);
+
+        click(teleSaveBtn);
+
         waitForModalToDisappear();
+
         closeSuccessAlert();
     }
 
-    // =============================
-    // COMPLETE FLOW
-    // =============================
+    // =========================================================
+    // MEDICINE
+    // =========================================================
 
- // =============================
- // DIAGNOSIS SECTION
- // =============================
+   public void addMedicine(String form, String name, String strength,
+                        String instruction, String days, String special) {
 
- public void addDiagnosis() {
+	   ensurePrescribeMedicineChecked();
 
-     selectDiagnosis("Conjunctival cysts");
+    waitForVisibility(drugForm);
 
-     selectEyeRE();
+    selectByVisibleText(drugForm, form);
 
-     enterRemarks("Initial Stage");
+    fastType(drugName, name);
 
-     saveDiagnosis();
- }
- 
- 
- //glasses Method
- 
- public void enableGlasses() {
-	    click(glassesCheckbox);
-	}
+    fastType(dosageStrength, strength);
 
-	public void selectContinueSame() {
-	    click(continueSame);
-	}
+    click(eyeREMed);
 
-	public void selectPrescribeNew() {
-	    click(prescribeNew);
-	}
+    fastType(dosageInstructions, instruction);
 
-	public void enterLenses(String value) {
-	    type(lensesField, value);
-	}
+    fastType(period, days);
 
-	public void saveGlasses() {
-	    click(glassesSaveBtn);
-	    closeSuccessAlert();
-	}
+    fastType(specialInstructions, special);
 
-	
-//=============================
-//TELECONSULTATION SECTION
-//=============================
+    click(addMedicineBtn);
 
-public void addTeleconsultation() {
+    waitForModalToDisappear();
 
-  selectTeleconsultationYes();
-
-  enterTeleconsultantName("V3M");
-
-  enterOrganizationName("Invision Hospital");
-
-  enterDesignation("Doctor");
-
-  clickTeleconsultationSave();
+    closeSuccessAlert();
 }
 
-//=============================
-//MEDICINE SECTION
-//=============================
+    // =========================================================
+    // GLASSES
+    // =========================================================
 
-public void addMedicineDetails() {
+    public void addGlasses(String lenses) {
 
- clickPrescribeMedicineCheckbox();
+        scrollTo(glassesCheckbox);
 
- selectDrugForm("Drop");
+        click(glassesCheckbox);
 
- enterDrugName("Eye Drop");
+        waitForVisibility(prescribeNew);
 
- enterDosageStrength("10ml");
+        click(prescribeNew);
 
- selectMedicineEyeRE();
+        type(lensesField, lenses);
 
- enterDosageInstructions("Twice a day");
+        scrollTo(glassesSaveBtn);
 
- enterPeriod("5");
+        click(glassesSaveBtn);
 
- enterSpecialInstructions("Use regularly");
+        closeSuccessAlert();
+    }
 
- addMedicine();
-}
+    // =========================================================
+    // HOSPITAL REFERRAL
+    // =========================================================
 
-public void addGlassesDetails() {
+    public void addHospitalReferral(String option,
+                                    String center,
+                                    String date,
+                                    String remarks) {
 
-    enableGlasses();
+        scrollTo(hospitalReferralCheckbox);
 
-    selectContinueSame();   // ya selectPrescribeNew()
+        click(hospitalReferralCheckbox);
 
-    enterLenses("Single Vision");
+        waitForVisibility(referralForDropdown);
 
-    saveGlasses();
-}
+        click(referralForDropdown);
 
-public void addHospitalReferralDetails() {
+        By optionLocator =
+                By.xpath("//input[@class='form-check-input referral-for-checkbox' and @value='" + option + "']");
 
-    enableHospitalReferral();
+        click(optionLocator);
 
-    enterReferralFor("Eye Surgery");
+        selectByVisibleText(referralCenter, center);
 
-    selectReferralCenter("City Hospital");
+        type(expectedVisitDate, date);
 
-    enterExpectedVisitDate("16-03-2026");
+        type(referralRemarks, remarks);
 
-    enterReferralRemarks("Urgent Case");
+        scrollTo(referralSaveBtn);
 
-    saveHospitalReferral();
-}
+        click(referralSaveBtn);
 
+        AlertConfirmationPopup popup = new AlertConfirmationPopup(driver);
+        popup.handlePopupFast();
+    }
+
+    // =========================================================
+    // COMPLETE EXAMINATION
+    // =========================================================
+
+    public void completeExamination() {
+
+        scrollTo(saveCompleteExam);
+
+        click(saveCompleteExam);
+
+        waitForModalToDisappear();
+
+        AlertConfirmationPopup popup = new AlertConfirmationPopup(driver);
+        popup.handlePopupFast();
+    }
+    public void ensurePrescribeMedicineChecked() {
+
+        WebElement checkbox = wait.until(
+                ExpectedConditions.elementToBeClickable(prescribeMedicineCheckbox));
+
+        scrollToElement(checkbox);
+
+        if (!checkbox.isSelected()) {
+
+            ((JavascriptExecutor) driver)
+                    .executeScript("arguments[0].click();", checkbox);
+
+            wait.until(ExpectedConditions.elementToBeSelected(checkbox));
+        }
+    }
 }
