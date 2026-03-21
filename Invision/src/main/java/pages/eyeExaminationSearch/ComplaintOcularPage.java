@@ -76,20 +76,33 @@ public class ComplaintOcularPage extends BasePage {
     // =============================
     // ADD CHIEF COMPLAINT
     // =============================
-    public void addChiefComplaint() {
-        selectChiefComplaint("Eye strain");
+   public void addChiefComplaint() {
 
-        clickWhenModalGone(wait.until(ExpectedConditions.elementToBeClickable(eyeRE)));
+    selectChiefComplaint("Eye strain");
 
-        WebElement period = waitUntilModalGoneAndVisible(periodField);
-        period.clear();
-        period.sendKeys("2");
+    clickWhenModalGone(wait.until(ExpectedConditions.elementToBeClickable(eyeRE)));
 
-        driver.findElement(durationDropdown).sendKeys("Days");
-        driver.findElement(saveChiefComplaint).click();
+    WebElement period = waitUntilModalGoneAndVisible(periodField);
+    period.clear();
+    period.sendKeys("2");
 
-        waitUntilModalGone();
+    WebElement dropdown = waitUntilModalGoneAndVisible(durationDropdown);
+    dropdown.sendKeys("Days");
+
+    // 🔥 IMPORTANT WAIT (button enable hone ka)
+    WebElement saveBtn = waitForButtonEnabled(saveChiefComplaint);
+
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
+
+    try {
+        saveBtn.click();
+    } catch (Exception e) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveBtn);
     }
+
+    waitUntilModalGone();
+}
+
 
  public void addOcularHistory() {
     // Ensure no modal is blocking
@@ -143,20 +156,6 @@ public class ComplaintOcularPage extends BasePage {
     // =============================
     // MODAL HANDLING
     // =============================
-//    private void waitUntilModalGone() {
-//        try {
-//            List<WebElement> modals = driver.findElements(modal);
-//            for (WebElement m : modals) {
-//                if (m.isDisplayed()) {
-//                    List<WebElement> okButtons = m.findElements(By.xpath(".//button[normalize-space()='OK']"));
-//                    if (!okButtons.isEmpty()) {
-//                        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", okButtons.get(0));
-//                        wait.until(ExpectedConditions.invisibilityOf(m));
-//                    }
-//                }
-//            }
-//        } catch (Exception ignored) {}
-//    }
 
     private WebElement waitUntilModalGoneAndVisible(By locator) {
         waitUntilModalGone();
@@ -174,6 +173,14 @@ public class ComplaintOcularPage extends BasePage {
                 try { Thread.sleep(200); } catch (Exception ignored) {}
             }
             attempts++;
-        }
+        }   
+    }
+    
+ // 🔥 MOST IMPORTANT FIX
+    private WebElement waitForButtonEnabled(By locator) {
+        return wait.until(driver -> {
+            WebElement el = driver.findElement(locator);
+            return (el.isDisplayed() && el.isEnabled()) ? el : null;
+        });
     }
 }
