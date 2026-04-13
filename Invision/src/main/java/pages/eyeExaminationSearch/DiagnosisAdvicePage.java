@@ -221,7 +221,6 @@ public class DiagnosisAdvicePage extends BasePage {
 
         closeSuccessAlert();
     }
-<<<<<<< HEAD
 
     // =========================================================
     // HOSPITAL REFERRAL
@@ -255,41 +254,6 @@ public class DiagnosisAdvicePage extends BasePage {
 
         click(referralSaveBtn);
 
-=======
-
-    // =========================================================
-    // HOSPITAL REFERRAL
-    // =========================================================
-
-    public void addHospitalReferral(String option,
-                                    String center,
-                                    String date,
-                                    String remarks) {
-
-        scrollTo(hospitalReferralCheckbox);
-
-        click(hospitalReferralCheckbox);
-
-        waitForVisibility(referralForDropdown);
-
-        click(referralForDropdown);
-
-        By optionLocator =
-                By.xpath("//input[@class='form-check-input referral-for-checkbox' and @value='" + option + "']");
-
-        click(optionLocator);
-
-        selectByVisibleText(referralCenter, center);
-
-        type(expectedVisitDate, date);
-
-        type(referralRemarks, remarks);
-
-        scrollTo(referralSaveBtn);
-
-        click(referralSaveBtn);
-
->>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
         AlertConfirmationPopup popup = new AlertConfirmationPopup(driver);
         popup.handlePopupFast();
     }
@@ -302,11 +266,7 @@ public class DiagnosisAdvicePage extends BasePage {
 
         scrollTo(saveCompleteExam);
 
-<<<<<<< HEAD
 //        click(saveCompleteExam);
-=======
-        click(saveCompleteExam);
->>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
 
         waitForModalToDisappear();
 
@@ -328,8 +288,4 @@ public class DiagnosisAdvicePage extends BasePage {
             wait.until(ExpectedConditions.elementToBeSelected(checkbox));
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
