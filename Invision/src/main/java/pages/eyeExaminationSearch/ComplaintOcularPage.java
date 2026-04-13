@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
+import utils.AlertConfirmationPopup;
+
+import java.util.List;
 
 public class ComplaintOcularPage extends BasePage {
 
@@ -75,33 +78,20 @@ public class ComplaintOcularPage extends BasePage {
     // =============================
     // ADD CHIEF COMPLAINT
     // =============================
-   public void addChiefComplaint() {
+    public void addChiefComplaint() {
+        selectChiefComplaint("Eye strain");
 
-    selectChiefComplaint("Eye strain");
+        clickWhenModalGone(wait.until(ExpectedConditions.elementToBeClickable(eyeRE)));
 
-    clickWhenModalGone(wait.until(ExpectedConditions.elementToBeClickable(eyeRE)));
+        WebElement period = waitUntilModalGoneAndVisible(periodField);
+        period.clear();
+        period.sendKeys("2");
 
-    WebElement period = waitUntilModalGoneAndVisible(periodField);
-    period.clear();
-    period.sendKeys("2");
+        driver.findElement(durationDropdown).sendKeys("Days");
+        driver.findElement(saveChiefComplaint).click();
 
-    WebElement dropdown = waitUntilModalGoneAndVisible(durationDropdown);
-    dropdown.sendKeys("Days");
-
-    // 🔥 IMPORTANT WAIT (button enable hone ka)
-    WebElement saveBtn = waitForButtonEnabled(saveChiefComplaint);
-
-    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", saveBtn);
-
-    try {
-        saveBtn.click();
-    } catch (Exception e) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveBtn);
+        waitUntilModalGone();
     }
-
-    waitUntilModalGone();
-}
-
 
  public void addOcularHistory() {
     // Ensure no modal is blocking
@@ -162,11 +152,7 @@ public class ComplaintOcularPage extends BasePage {
     // =============================
     // MODAL HANDLING
     // =============================
-<<<<<<< HEAD
  
-=======
-
->>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
     private WebElement waitUntilModalGoneAndVisible(By locator) {
         waitUntilModalGone();
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -183,10 +169,9 @@ public class ComplaintOcularPage extends BasePage {
                 try { Thread.sleep(200); } catch (Exception ignored) {}
             }
             attempts++;
-        }   
+        }
     }
     
-<<<<<<< HEAD
     private void handleAnyPopup() {
 
         By alertMsg = By.xpath(
@@ -236,13 +221,3 @@ public class ComplaintOcularPage extends BasePage {
     }
 
 }
-=======
- // 🔥 MOST IMPORTANT FIX
-    private WebElement waitForButtonEnabled(By locator) {
-        return wait.until(driver -> {
-            WebElement el = driver.findElement(locator);
-            return (el.isDisplayed() && el.isEnabled()) ? el : null;
-        });
-    }
-}
->>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
