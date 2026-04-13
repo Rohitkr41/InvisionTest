@@ -210,11 +210,7 @@ public class WalkInRegistrationPage extends BasePage {
         driver.findElement(transactionId).sendKeys("gpayr373677343");
        
         //registrationBtn
-<<<<<<< HEAD
 //        click(registrationBtn);
-=======
-        click(registrationBtn);
->>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
 
      // wait for popup
         wait.until(driver -> 
