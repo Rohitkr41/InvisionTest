@@ -45,9 +45,4 @@ public class EyeExaminationActionTest extends BaseTest {
         // DEBUG (OPTIONAL)
         System.out.println("Plus icon clicked successfully");
     }
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
