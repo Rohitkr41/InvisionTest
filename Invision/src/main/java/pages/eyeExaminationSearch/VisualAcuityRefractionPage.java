@@ -481,4 +481,8 @@ public class VisualAcuityRefractionPage extends BasePage {
 
     System.out.println("✅ Input set for: " + locator + " = " + value);
 }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872

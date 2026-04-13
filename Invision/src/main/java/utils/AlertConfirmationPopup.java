@@ -19,6 +19,7 @@ public class AlertConfirmationPopup {
     String message = "";
 
     By alertMessage = By.xpath(
+<<<<<<< HEAD
     	    "//div[contains(@class,'alert') and not(contains(@style,'display: none'))] | " +
     	    "//div[contains(@class,'swal2-popup')] | " +
     	    "//p[contains(text(),'successfully') or contains(text(),'updated successfully') or contains(text(),'exist') or contains(text(),'sure')] | " +
@@ -35,6 +36,17 @@ public class AlertConfirmationPopup {
     	    "(//button[@class='btn btn-light' and normalize-space()='OK'])[3]"
     	);
     
+=======
+        "//div[contains(@class,'alert') and not(contains(@style,'display: none'))] | " +
+        "//div[contains(@class,'swal2-popup')] | " +
+        "//p[contains(text(),'successfully') or contains(text(),'updated successfully') or contains(text(),'exist') or contains(text(),'sure')]" +
+        "//p[contains(text(),'updated successfully!')] | " + 
+        "//div[contains(@class,'alert-body')]//p[contains(text(),'No records found')]"
+    );
+
+    By okButtons = By.xpath("//button[normalize-space()='OK' or normalize-space()='Ok' |" +
+    "//div[contains(@class,'alert-btn')]//button[normalize-space()='OK']");
+>>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
 //    By okButtons1 = By.xpath("(//button[contains(text(),'OK')])[3]");
     By yesButtons = By.xpath("//button[normalize-space()='Yes']");
 
@@ -62,6 +74,17 @@ public class AlertConfirmationPopup {
 
     } catch (Exception e) {
         System.out.println("⚠️ No alert found");
+<<<<<<< HEAD
+=======
+    }
+
+    return message;
+}
+
+
+    private void clickJS(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+>>>>>>> 573403487f5bc32e7d3c682235c6e499b913b872
     }
 
     return message;
