@@ -31,10 +31,11 @@ public class ComplaintOcularTest extends BaseTest {
 
         // PAGE OBJECT
         actionPage = new EyeExaminationActionPage(driver);
+        
         ocularPage = new ComplaintOcularPage(driver);
 
         // SEARCH AND OPEN PATIENT
-        actionPage.searchByDate("14-03-2026", "15-03-2026");
+        actionPage.searchByDate("08-04-2026", "10-04-2026");
         actionPage.clickFirstRowPlusIcon();
     }
 

@@ -26,10 +26,12 @@ public class WalkInRegistrationTest extends BaseTest {
 	    login.login(
 	            ConfigReader.getProperty("username"),
 	            ConfigReader.getProperty("password")
+	            
 	    );
 
 	    // Sidebar Navigation
 	    SidebarPage sidebar = new SidebarPage(driver);
+	    
 	    sidebar.clickVisionCenter();
 	    sidebar.clickRegistration();
 

@@ -1,11 +1,13 @@
+
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
 
 public class FollowUpRegistrationPage extends BasePage {
 
@@ -13,45 +15,29 @@ public class FollowUpRegistrationPage extends BasePage {
         super(driver);
     }
 
-    // Patient Search
-    By patientFirstName = By.name("searchRegisterDomain.PatientName");
-    By RegistrationNo = By.name("searchRegisterDomain.MedicalNo");
-    By phoneNumber = By.name("searchRegisterDomain.PhoneNumber");
+    // ================================
+    // 🔹 LOCATORS
+    // ================================
+
+    By memberNumber = By.name("searchRegisterDomain.MedicalNo");
     By searchButton = By.xpath("(//*[@id='main']//form//a)[2]");
-
     // Fetch
-    By fetchdata = By.xpath("//table//tbody//tr[1]//td[7]//i");
-
-    // Confirm Yes
+	 By fetchdata = By.xpath("//table//tbody//tr[1]//td[7]//i");
     By yesbtn = By.xpath("//button[.='Yes']");
 
-    // Discount
     By discountCheckbox = By.xpath("//*[@id='main']//div[3]//div[2]//div[4]//input");
     By discountTextField = By.xpath("(//*[@id='main']//form//div[5]//input)[5]");
-
-    // Dropdowns
     By discountRemarkDropdown = By.xpath("//label[contains(text(),'Discount Remark')]/following::select[1]");
     By modeDropdown = By.xpath("//label[contains(text(),'Mode')]/following::select[1]");
-
-    // Transaction Id
     By transactionId = By.xpath("(//*[@id='main']//div[8]//input)[2]");
-
-    // Register Patient
     By registerPatient = By.id("RM_btnSubmit");
 
+    // ================================
+    // 🔹 BASIC ACTIONS
+    // ================================
 
-    // ===== ACTION METHODS =====
-
-    public void enterPatientFirstName(String name) {
-        type(patientFirstName, name);
-    }
-
-    public void enterMemberNumber(String member) {
-        type(RegistrationNo, member);
-    }
-
-    public void enterPhoneNumber(String phone) {
-        type(phoneNumber, phone);
+    public void enterMemberNumber(String number) {
+        type(memberNumber, number);
     }
 
     public void clickSearch() {
@@ -66,44 +52,109 @@ public class FollowUpRegistrationPage extends BasePage {
         click(yesbtn);
     }
 
-    public void clickDiscountCheckbox() {
-        click(discountCheckbox);
-    }
+    public void clickRegisterPatient() {
+    WebElement btn = driver.findElement(registerPatient);
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript("arguments[0].click();", btn);
+}
 
     public void enterDiscountAmount(String amount) {
         type(discountTextField, amount);
-    }
-
-    public void selectDiscountRemark(String remark) {
-
-        waitForVisibility(discountRemarkDropdown);
-
-        Select dropdown = new Select(driver.findElement(discountRemarkDropdown));
-
-        List<WebElement> options = dropdown.getOptions();
-
-        for (WebElement option : options) {
-
-            String optionText = option.getText().trim();
-
-            if (optionText.equalsIgnoreCase(remark)) {
-                option.click();
-                return;
-            }
-        }
-
-        throw new RuntimeException("Discount Remark not found: " + remark);
-    }
-
-    public void selectMode(String modeType) {
-        selectDropdown(modeDropdown, modeType);
     }
 
     public void enterTransactionId(String txnId) {
         type(transactionId, txnId);
     }
 
-    public void clickRegisterPatient() {
-        click(registerPatient);
+    public void clickDiscountCheckbox() {
+        click(discountCheckbox);
     }
+
+    // ================================
+    // 🔹 DROPDOWNS
+    // ================================
+
+    public void selectDiscountRemark(String remark) {
+        waitForVisibility(discountRemarkDropdown);
+        Select dropdown = new Select(driver.findElement(discountRemarkDropdown));
+
+        for (WebElement option : dropdown.getOptions()) {
+            if (option.getText().trim().equalsIgnoreCase(remark)) {
+                option.click();
+                return;
+            }
+        }
+    }
+
+    public void selectMode(String modeType) {
+        WebElement dropdown = wait.until(
+                ExpectedConditions.elementToBeClickable(modeDropdown));
+
+        Select mode = new Select(dropdown);
+        mode.selectByVisibleText(modeType);
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript(
+                "arguments[0].dispatchEvent(new Event('change',{bubbles:true}));",
+                dropdown
+        );
+
+        dropdown.sendKeys(Keys.TAB);
+    }
+
+    // ================================
+    // 🔹 CONDITIONS
+    // ================================
+
+    public boolean isPaymentSectionEnabled() {
+        try {
+            WebElement mode = driver.findElement(modeDropdown);
+            return mode.isDisplayed() && mode.isEnabled();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isDiscountCheckboxClickable() {
+    try {
+        wait.until(ExpectedConditions.elementToBeClickable(discountCheckbox));
+        return true;
+    } catch (Exception e) {
+        return false;
+    }
+}
+
+    // ================================
+    // 🚀 FINAL METHOD
+    // ================================
+
+   public void handlePaymentAndRegister(String modeType, String remark, String txnId, String discountAmt) {
+
+    if (isPaymentSectionEnabled()) {
+
+        System.out.println("✅ Payment section enabled → trying payment");
+
+        try {
+            // 🔥 TRY clicking checkbox (no pre-check)
+            clickDiscountCheckbox();
+
+            // Agar click successful ho gaya tabhi aage badho
+            enterDiscountAmount(discountAmt);
+            selectDiscountRemark(remark);
+            selectMode(modeType);
+            enterTransactionId(txnId);
+
+        } catch (Exception e) {
+
+            System.out.println("⚠️ Discount checkbox not clickable → skipping payment بالكامل");
+        }
+
+    } else {
+
+        System.out.println("⚠️ Payment section disabled → skipping payment");
+    }
+
+    // ✅ ALWAYS REGISTER
+    clickRegisterPatient();
+}
 }

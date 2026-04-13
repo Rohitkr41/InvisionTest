@@ -43,6 +43,7 @@ public class BillingReceiptTest extends BaseTest {
         page.clickTopSearch();
 
         boolean result = page.isResultDisplayed();
+        
 
         Assert.assertTrue(result, "No result found for Registration");
 

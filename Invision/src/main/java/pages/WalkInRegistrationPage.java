@@ -1,16 +1,20 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import utils.AlertConfirmationPopup;
 
 public class WalkInRegistrationPage extends BasePage {
-
+	
+	AlertConfirmationPopup popup;
     public WalkInRegistrationPage(WebDriver driver) {
         super(driver);
+        popup = new AlertConfirmationPopup(driver);
     }
 
     // Basic Details
@@ -132,10 +136,32 @@ public class WalkInRegistrationPage extends BasePage {
     // Mode Select
     public void selectMode(String modeType) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(modeDropdown));
+        WebElement dropdown = wait.until(
+                ExpectedConditions.elementToBeClickable(modeDropdown));
 
-        Select mode = new Select(driver.findElement(modeDropdown));
+        Select mode = new Select(dropdown);
+
+        // wait for options
+        wait.until(driver -> mode.getOptions().size() > 1);
+
         mode.selectByVisibleText(modeType);
+
+        // ✅ verify selection
+        wait.until(driver ->
+                mode.getFirstSelectedOption().getText().equalsIgnoreCase(modeType));
+
+        // 🔥 trigger frontend events
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript(
+                "arguments[0].dispatchEvent(new Event('change',{bubbles:true}));" +
+                "arguments[0].dispatchEvent(new Event('input',{bubbles:true}));" +
+                "arguments[0].dispatchEvent(new Event('blur',{bubbles:true}));",
+                dropdown
+        );
+
+        // 🔥 focus out (very important)
+        dropdown.sendKeys(Keys.TAB);
     }
 
 
@@ -145,15 +171,15 @@ public class WalkInRegistrationPage extends BasePage {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstName));
 
-        type(firstName,"Rahul");
-        type(lastName,"Singh");
+        type(firstName,"Sushant");
+        type(lastName,"kumar");
 
         click(genderMale);
 
-        type(dob,"10-05-1995");
+        type(dob,"10-05-2000");
 
-        type(nextOfKin,"Ramesh");
-        type(phoneNumber,"9876543210");
+        type(nextOfKin,"Suresh");
+        type(phoneNumber,"316514654165");
 
         // Occupation
         selectOccupation();
@@ -184,6 +210,19 @@ public class WalkInRegistrationPage extends BasePage {
         driver.findElement(transactionId).sendKeys("gpayr373677343");
        
         //registrationBtn
-        click(registrationBtn);
+//        click(registrationBtn);
+
+     // wait for popup
+        wait.until(driver -> 
+            driver.findElements(By.xpath("//div[contains(@class,'alert') or contains(@class,'swal2-popup')]")).size() > 0
+        );
+
+        // handle popups
+        popup.handlePopupFast();
+       
+
+     String alertMsg = popup.handlePopupFast();
+     System.out.println(alertMsg);
+        
     }
 }

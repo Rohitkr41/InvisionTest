@@ -25,6 +25,8 @@ public class SidebarPage {
     // ======================
 
     private By visionCenterMenu = By.xpath("//span[contains(text(),'Vision Center')]");
+    
+    private By CommunityClinicMenu = By.xpath("//span[contains(text(),'Community Clinic')]");
     private By registrationMenu = By.xpath("//span[normalize-space()='Registration']");
     private By patientReceiptMenu = By.xpath("//span[normalize-space()='Print Reciept']");
     private By eyeExaminationMenu = By.xpath("//span[normalize-space()='Eye Examination']");
@@ -158,5 +160,14 @@ public void clickSurveyRegistration() {
   wait.until(ExpectedConditions.visibilityOfElementLocated(surveyRegistration));
 
   safeClick(surveyRegistration);
+}
+
+public void clickCommunityClinic() {
+	// TODO Auto-generated method stub
+	
+	wait.until(ExpectedConditions.visibilityOfElementLocated(CommunityClinicMenu));
+
+	  safeClick(CommunityClinicMenu);
+	
 }
 }

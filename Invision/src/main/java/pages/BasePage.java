@@ -74,13 +74,16 @@ public class BasePage {
     // =========================
     // CLICK METHODS
     // =========================
+
     protected void click(By locator) {
         retryAction(() -> {
             waitForLoaderToDisappear();
+
             WebElement element = wait.until(ExpectedConditions.refreshed(
                     ExpectedConditions.elementToBeClickable(locator)));
-            scrollToElement(element);
-            safeClick(element);
+
+            scrollToElement(element);   // good
+            safeClick(element);        // now correct ✅
         });
     }
 
@@ -94,13 +97,17 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
 
-    private void safeClick(WebElement element) {
-        try {
-            element.click();
-        } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-        }
+    protected void safeClick(WebElement element) {
+    ((JavascriptExecutor) driver)
+        .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+
+    try {
+        element.click();
+    } catch (Exception e) {
+        ((JavascriptExecutor) driver)
+            .executeScript("arguments[0].click();", element);
     }
+}
 
     private void retryAction(Runnable action) {
         int attempts = 0;

@@ -3,6 +3,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,55 +16,41 @@ public class PatientTypePage extends BasePage {
     }
 
     // Patient Type Dropdown
-    By patientTypeDropdown = By.xpath("//label[contains(text(),'Patient Type')]/following::select[1]");
+//    By patientTypeDropdown = By.xpath("//label[contains(text(),'Patient Type')]/following::select[1]");
+    By patientTypeDropdown = By.xpath("(//label[contains(.,'Patient Type')]/ancestor::div[contains(@class,'form-group')]//select)[1]");
 
 
     // Generic Method (Ultra Stable)
-    public void selectPatientType(String type) {
+   public void selectPatientType(String type) {
 
-        WebElement dropdown = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(patientTypeDropdown));
+    WebElement dropdown = wait.until(
+            ExpectedConditions.elementToBeClickable(patientTypeDropdown));
 
-        wait.until(ExpectedConditions.elementToBeClickable(dropdown));
+    Select select = new Select(dropdown);
 
-        // wait until dropdown options load
-        wait.until(driver -> new Select(dropdown).getOptions().size() > 1);
+    // wait for options
+    wait.until(driver -> select.getOptions().size() > 1);
 
-        int attempts = 0;
+    // select value
+    select.selectByVisibleText(type);
 
-        while (attempts < 3) {
-            try {
+    // ✅ VERIFY selection
+    wait.until(driver ->
+            select.getFirstSelectedOption().getText().equalsIgnoreCase(type));
 
-                Select patientType = new Select(dropdown);
-                patientType.selectByVisibleText(type);
+    // 🔥 IMPORTANT: trigger UI events
+    JavascriptExecutor js = (JavascriptExecutor) driver;
 
-                return; // success
+    js.executeScript(
+            "arguments[0].dispatchEvent(new Event('change', {bubbles:true}));" +
+            "arguments[0].dispatchEvent(new Event('input', {bubbles:true}));" +
+            "arguments[0].dispatchEvent(new Event('blur', {bubbles:true}));",
+            dropdown
+    );
 
-            } catch (Exception e) {
-
-                attempts++;
-
-                try {
-                    Thread.sleep(700); // small pause
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-
-        // JavaScript fallback (if Selenium fails)
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        js.executeScript(
-                "var select = arguments[0];" +
-                "for(var i=0;i<select.options.length;i++){" +
-                " if(select.options[i].text=='" + type + "'){" +
-                " select.selectedIndex=i;" +
-                " select.dispatchEvent(new Event('change'));" +
-                " break;" +
-                " }" +
-                "}", dropdown);
-    }
+    // 🔥 ALSO DO THIS (very important)
+    dropdown.sendKeys(Keys.TAB);
+}
 
 
     // Walk-In Patient

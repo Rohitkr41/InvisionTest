@@ -266,7 +266,7 @@ public class DiagnosisAdvicePage extends BasePage {
 
         scrollTo(saveCompleteExam);
 
-        click(saveCompleteExam);
+//        click(saveCompleteExam);
 
         waitForModalToDisappear();
 

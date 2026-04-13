@@ -34,7 +34,7 @@ public class DiagnosisAdviceTest extends BaseTest {
         diagnosisPage = new DiagnosisAdvicePage(driver);
 
         // SEARCH PATIENT
-        actionPage.searchByDate("01-03-2026", "15-03-2026");
+        actionPage.searchByDate("16-03-2026", "25-03-2026");
         actionPage.clickFirstRowPlusIcon();
         
     }

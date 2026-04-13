@@ -14,9 +14,10 @@ public class ReferralRegistrationPage extends BasePage {
         super(driver);
     }
 
-    // Patient Type
-    By surveyRadio = By.xpath("(//*[@id='main']//form//label//input)[4]");
-    By communityClinicRadio = By.xpath("(//*[@id='main']//form//label//input)[5]");
+ // Patient Type
+    By surveyRadio = By.xpath("//input[@value='survey']");
+    By communityClinicRadio = By.xpath("//input[@value='cc']");
+    
 
     // Patient Search
     By patientFirstName = By.name("searchRegisterDomain.PatientName");
@@ -58,6 +59,8 @@ public class ReferralRegistrationPage extends BasePage {
     public void selectCommunityClinic() {
         click(communityClinicRadio);
     }
+    
+  
 
     public void enterPatientFirstName(String name) {
         type(patientFirstName, name);

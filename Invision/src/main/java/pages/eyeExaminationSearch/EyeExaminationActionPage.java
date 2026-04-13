@@ -41,7 +41,7 @@ public class EyeExaminationActionPage extends BasePage {
     // PLUS ICON (FIRST ROW ACTION)
     // =============================
 
-    By plusIcon = By.xpath("//*[@id='h-din']//tbody//tr[1]//td[10]//i[1]");
+    By plusIcon = By.xpath("//*[@id=\"h-din\"]/table/tbody/tr[3]/td[10]/i[1]");
 
     // =============================
     // SAFE CLICK

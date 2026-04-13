@@ -33,24 +33,18 @@ public class FollowUpRegistrationTest extends BaseTest {
         // FollowUp Registration Flow
         FollowUpRegistrationPage followup = new FollowUpRegistrationPage(driver);
 
-//        followup.enterPatientFirstName("Test");
         followup.enterMemberNumber("IH-IVC-26-0379");
-//        followup.enterPhoneNumber("9876543210");
-
         followup.clickSearch();
         followup.clickFetch();
         followup.clickYes();
 
-        followup.clickDiscountCheckbox();
-        followup.enterDiscountAmount("5");
-
-        followup.selectDiscountRemark("Poor Patient");
-
-        followup.selectMode("UPI");
-
-        followup.enterTransactionId("TXN12345");
-
-//        followup.clickRegisterPatient();
+        // 🚀 ✅ SMART HANDLING (Payment + Register)
+        followup.handlePaymentAndRegister(
+                "UPI",              // Mode
+                "Poor Patient",    // Discount Remark
+                "TXN12345",        // Transaction ID
+                "5"                // Discount Amount
+        );
 
         System.out.println("FollowUp Registration Completed");
     }
