@@ -1,14 +1,13 @@
 
 package tests;
 
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
-
-import org.openqa.selenium.By;
-import org.testng.Assert;
 import pages.LoginPage;
 import pages.PatientTypePage;
 import pages.SidebarPage;
@@ -19,7 +18,7 @@ import utils.ScreenshotUtil;
 public class WalkInRegistrationTest extends BaseTest {
 
 	@Test
-	public void walkInRegistration() {
+	public void walkInRegistration() throws InterruptedException {
 
 	    // Login
 	    LoginPage login = new LoginPage(driver);
@@ -29,19 +28,27 @@ public class WalkInRegistrationTest extends BaseTest {
 	            
 	    );
 
-	    // Sidebar Navigation
-	    SidebarPage sidebar = new SidebarPage(driver);
-	    
-	    sidebar.clickVisionCenter();
-	    sidebar.clickRegistration();
+	    int registrationCount = 3;
 
-	    // Select Patient Type
-	    PatientTypePage pt = new PatientTypePage(driver);
-	    pt.selectWalkIn();
+		for (int i = 1; i <= registrationCount; i++) {
 
-	    // Fill Walk-In Registration
-	    WalkInRegistrationPage reg = new WalkInRegistrationPage(driver);
-	    reg.registerWalkInPatient();
+		    System.out.println("Registration Number : " + i);
+
+		    SidebarPage sidebar = new SidebarPage(driver);
+//		    sidebar.clickVisionCenter();
+		    sidebar.clickCommunityclinc();
+		    sidebar.clickRegistration();
+
+		    PatientTypePage pt = new PatientTypePage(driver);
+		    pt.selectWalkIn();
+
+		    WalkInRegistrationPage reg = new WalkInRegistrationPage(driver);
+		    reg.registerWalkInPatient();
+
+		 // Registration complete hone ke baad refresh
+		    driver.navigate().refresh();
+
+		}
 	}
 	
 	@AfterMethod
