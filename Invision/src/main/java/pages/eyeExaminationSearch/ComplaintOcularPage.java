@@ -79,7 +79,7 @@ public class ComplaintOcularPage extends BasePage {
     // ADD CHIEF COMPLAINT
     // =============================
     public void addChiefComplaint() {
-        selectChiefComplaint("Eye strain");
+        selectChiefComplaint("BLUR VISION");
 
         clickWhenModalGone(wait.until(ExpectedConditions.elementToBeClickable(eyeRE)));
 
@@ -117,7 +117,7 @@ public class ComplaintOcularPage extends BasePage {
  // Enter Previous Treatment
     WebElement treatment = waitUntilModalGoneAndVisible(previousTreatment);
     treatment.clear();
-    treatment.sendKeys("Glasses");
+    treatment.sendKeys("EXERCISE");
 
     // Wait for the suggestion to appear and click it
     try {
