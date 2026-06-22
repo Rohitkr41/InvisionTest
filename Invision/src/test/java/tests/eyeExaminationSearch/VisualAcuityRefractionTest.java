@@ -34,14 +34,14 @@ public class VisualAcuityRefractionTest extends BaseTest {
         visualPage = new VisualAcuityRefractionPage(driver);
 
         // SEARCH PATIENT
-        actionPage.searchByDate("08-04-2026", "08-04-2026");
+        actionPage.searchByDate("22-06-2026", "30-06-2026");
 
         // OPEN PATIENT
         actionPage.clickFirstRowPlusIcon();
     }
 
     @Test
-    public void testVisualAcuityRefraction() {
+    public void testVisualAcuityRefraction() throws InterruptedException {
 
         visualPage.clickVisualAcuityMenu();
         visualPage.addVisualAcuity();
