@@ -42,7 +42,7 @@ public class HistoryTest extends BaseTest {
         // =============================
         // SEARCH PATIENT AND OPEN FIRST ROW
         // =============================
-        actionPage.searchByDate("01-03-2026", "15-03-2026");
+        actionPage.searchByDate("22-06-2026", "30-06-2026");
         actionPage.clickFirstRowPlusIcon();
     }
 
@@ -58,7 +58,7 @@ public class HistoryTest extends BaseTest {
         // ADD SYSTEMIC HISTORY
         // =============================
         historyPage.addSystemicHistory(
-                "Hypertension",  // Systemic History
+                "HYPERTENSION",  // Systemic History
                 "5",             // Period
                 "Year",          // Duration
                 "Under medication", // Remarks
@@ -69,8 +69,8 @@ public class HistoryTest extends BaseTest {
         // ADD FAMILY HISTORY
         // =============================
         historyPage.addFamilyHistory(
-                "Glaucoma",      // Family History
-                "Wife",        // Relation
+                "GLAUCOMA",      // Family History
+                "WIFE",        // Relation
                 "Hereditary case" // Remarks
         );
     }
