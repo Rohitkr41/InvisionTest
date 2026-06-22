@@ -6,10 +6,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pages.BasePage;
-import utils.AlertConfirmationPopup;
 
-import java.util.List;
+import pages.BasePage;
 
 public class ComplaintOcularPage extends BasePage {
 
@@ -25,20 +23,39 @@ public class ComplaintOcularPage extends BasePage {
     // =============================
     // CHIEF COMPLAINT
     // =============================
-    By chiefComplaintField = By.xpath("(//*[@id='box-main']//input)[1]");
-    By eyeRE = By.xpath("(//*[@id=\"box-main\"]/div//div[2]//div[2]//div[1]/label)[1]");
-    By periodField = By.id("numberInput");
-    By durationDropdown = By.xpath("//*[@id='box-main']//select");
-    By saveChiefComplaint = By.id("RM_btnSubmit");
+    private final By chiefComplaintField =
+            By.xpath("//input[@data-dropdown='complaintDropdown']");
+
+    private final By eyeRE =
+            By.id("RM_rdbREs");
+
+    private final By periodField =
+            By.id("numberInput");
+
+    private final By durationDropdown =
+            By.xpath("//*[@id='box-main']//select");
+
+    private final By saveChiefComplaint =
+            By.id("RM_btnSubmit");
 
     // =============================
     // OCULAR HISTORY
     // =============================
-    By ocularHistoryField = By.xpath("//*[@id=\"box-main\"]//div[2]//div[2]//div[1]/input");
-    By ocularEyeRE = By.id("RM_rdbRE");
-    By previousTreatment = By.xpath("//*[@id=\"box-main\"]//div[2]/div/div[3]/input");
-    By remarksField = By.xpath("//*[@id=\"box-main\"]//div[2]/div/div[4]/input");
-    By saveOcularHistory = By.xpath("(//*[@id=\"RM_btnSubmit\"])[2]");
+    private final By ocularHistoryField =
+            By.xpath("(//input[@data-dropdown='ocularDropdown'])[1]");
+
+    private final By ocularEyeRE =
+            By.id("RM_rdbRE");
+
+    private final By previousTreatment =
+            By.xpath("(//input[@data-dropdown='ocularDropdown'])[2]");
+
+    private final By remarksField =
+            By.xpath("//label[text()='Remarks']/following::input[1]");
+
+    private final By saveOcularHistory =
+            By.xpath("(//button[@id='RM_btnSubmit'])[2]");
+
 
     // =============================
     // ALERT / MODAL
@@ -93,61 +110,75 @@ public class ComplaintOcularPage extends BasePage {
         waitUntilModalGone();
     }
 
- public void addOcularHistory() {
-    // Ensure no modal is blocking
-    waitUntilModalGone();
+  public void addOcularHistory() {
 
-    // 1️⃣ Enter Ocular History
-    WebElement history = waitUntilModalGoneAndVisible(ocularHistoryField);
-    history.clear();
-    history.sendKeys("Conjunctivitis");
+    System.out.println("Step 1 : Ocular History");
 
-    // Optional: click suggestion if exists
-    try {
-        By suggestion = By.xpath("//li[contains(text(),'Conjunctivitis')]");
-        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(suggestion));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
-        wait.until(ExpectedConditions.elementToBeClickable(option)).click();
-    } catch (Exception ignored) {}
+    selectFromDropdown(ocularHistoryField, "CATARACT");
 
-    // 2️⃣ Click RE radio button (after modal gone)
-    WebElement radio = waitUntilModalGoneAndVisible(ocularEyeRE);
-    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", radio);
+    System.out.println("Step 2 : Eye Selection");
 
- // Enter Previous Treatment
-    WebElement treatment = waitUntilModalGoneAndVisible(previousTreatment);
-    treatment.clear();
-    treatment.sendKeys("EXERCISE");
+    safeClick(waitVisible(ocularEyeRE));
 
-    // Wait for the suggestion to appear and click it
-    try {
-        By suggestion = By.xpath("//li[contains(text(),'Glasses')]");
-        WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(suggestion));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", option);
-        wait.until(ExpectedConditions.elementToBeClickable(option)).click();
-    } catch (Exception e) {
-        throw new RuntimeException("Previous Treatment suggestion 'Glasses' not found");
-    }
+    System.out.println("Step 3 : Previous Treatment");
 
-    // 4️⃣ Enter Remarks
-    WebElement remarks = waitUntilModalGoneAndVisible(remarksField);
+    selectFromDropdown(previousTreatment, "GLASSES");
+
+    System.out.println("Step 4 : Remarks");
+
+    WebElement remarks = waitVisible(remarksField);
     remarks.clear();
     remarks.sendKeys("No major issue");
 
-    WebElement save = waitUntilModalGoneAndVisible(saveOcularHistory);
-    clickWhenModalGone(save);
+    System.out.println("Step 5 : Save");
 
-    // 🔥 Force wait for DOM update (important)
-    try { Thread.sleep(800); } catch (Exception ignored) {}
+    WebElement save =
+            wait.until(ExpectedConditions.elementToBeClickable(saveOcularHistory));
 
+    safeClick(save);
     handleAnyPopup();
-
-    
-    // 6️⃣ Final wait for any modal/alert
-    waitUntilModalGone();
-    
-    
 }
+ 
+ 
+ private void selectFromDropdown(By inputLocator, String value) {
+
+     WebElement input = waitVisible(inputLocator);
+
+     input.click();
+     input.clear();
+     input.sendKeys(value);
+
+     By suggestionList =
+             By.xpath("//ul[contains(@class,'suggestions-list')]");
+
+     wait.until(ExpectedConditions.visibilityOfElementLocated(suggestionList));
+
+     By option = By.xpath(
+             "//li[contains(@class,'suggestion-item') and contains(normalize-space(),'"
+                     + value + "')]");
+
+     WebElement item =
+             wait.until(ExpectedConditions.elementToBeClickable(option));
+
+     safeClick(item);
+
+     ((JavascriptExecutor) driver).executeScript(
+             "arguments[0].dispatchEvent(new Event('change',{bubbles:true}));",
+             input);
+
+     ((JavascriptExecutor) driver).executeScript(
+             "arguments[0].dispatchEvent(new Event('blur',{bubbles:true}));",
+             input);
+ }
+
+ 
+ private WebElement waitVisible(By locator) {
+
+     waitUntilModalGone();
+
+     return wait.until(
+             ExpectedConditions.visibilityOfElementLocated(locator));
+ }
 
     // =============================
     // MODAL HANDLING
