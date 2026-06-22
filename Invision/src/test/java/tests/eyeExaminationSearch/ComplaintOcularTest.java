@@ -35,7 +35,7 @@ public class ComplaintOcularTest extends BaseTest {
         ocularPage = new ComplaintOcularPage(driver);
 
         // SEARCH AND OPEN PATIENT
-        actionPage.searchByDate("20-06-2026", "30-06-2026");
+        actionPage.searchByDate("22-06-2026", "30-06-2026");
         actionPage.clickFirstRowPlusIcon();
     }
 
