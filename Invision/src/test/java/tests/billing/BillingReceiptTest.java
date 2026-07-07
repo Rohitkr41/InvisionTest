@@ -121,8 +121,8 @@ public class BillingReceiptTest extends BaseTest {
 
         page.advanceSearchByPhone(
                 "1234567891",
-                "10-03-2026",
-                "10-03-2026"
+                "01-07-2026",
+                "01-09-2026"
         );
 
         boolean result = page.isResultDisplayed();
