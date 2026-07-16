@@ -42,7 +42,7 @@ public class FollowUpRegistrationTest extends BaseTest {
         followup.handlePaymentAndRegister(
                 "UPI",              // Mode
                 "Poor Patient",    // Discount Remark
-                "TXN12345",        // Transaction ID
+                "TXN12345809",        // Transaction ID
                 "5"                // Discount Amount
         );
 
