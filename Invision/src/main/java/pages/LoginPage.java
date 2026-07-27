@@ -17,7 +17,7 @@ public class LoginPage extends BasePage {
     // LOCATORS
     // ======================
 
-    private By usernameField = By.cssSelector("input[name='loginModel.Username']");
+    private By usernameField = By.name("loginModel.Username");
     private By passwordField = By.cssSelector("input[name='loginModel.Password']");
     private By captchaField = By.cssSelector("input[placeholder='Captcha']");
     private By loginButton = By.xpath("//button[contains(text(),'Login')]");
@@ -26,64 +26,103 @@ public class LoginPage extends BasePage {
     // LOGIN METHOD
     // ======================
 
-    public void login(String username, String password) {
+   public void login(String username, String password) {
 
-        // Wait until page fully loads
-        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField));
+    System.out.println("\n======================================");
+    System.out.println("LOGIN METHOD CALLED");
+    System.out.println("Current URL : " + driver.getCurrentUrl());
+    System.out.println("Thread ID   : " + Thread.currentThread().getId());
+    System.out.println("======================================");
 
-        enterText(usernameField, username);
-        enterText(passwordField, password);
+    // Wait until page fully loads
+    wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField));
 
-        System.out.println("Enter CAPTCHA manually...");
+    // Enter Username
+    enterText(usernameField, username);
 
-        // Wait until user enters captcha
-        wait.until(driver ->
-                driver.findElement(captchaField)
-                        .getAttribute("value")
-                        .length() > 0
-        );
+    WebElement usernameElement = driver.findElement(usernameField);
+    System.out.println("Username after entry : "
+            + usernameElement.getAttribute("value"));
 
-        safeClick(loginButton);
+    // Enter Password
+    enterText(passwordField, password);
 
-        // Wait until dashboard loads
-        waitForUrlContains("adminDashboard");
-    }
+    WebElement passwordElement = driver.findElement(passwordField);
+    System.out.println("Password length : "
+            + passwordElement.getAttribute("value").length());
+
+    System.out.println("Enter CAPTCHA manually...");
+
+    // Wait until user enters captcha
+    wait.until(driver -> {
+        String captchaValue =
+                driver.findElement(captchaField).getAttribute("value");
+
+        return captchaValue != null && !captchaValue.trim().isEmpty();
+    });
+
+    System.out.println("CAPTCHA Entered Successfully");
+
+    safeClick(loginButton);
+
+    System.out.println("Login button clicked.");
+
+    // Wait until dashboard loads
+    waitForUrlContains("adminDashboard");
+
+    System.out.println("Dashboard Loaded Successfully.");
+}
 
     // ======================
     // STABLE TEXT ENTRY
     // ======================
 
-    private void enterText(By locator, String text) {
+  private void enterText(By locator, String text) {
 
-        int attempts = 0;
+    int attempts = 0;
 
-        while (attempts < 3) {
+    while (attempts < 3) {
 
-            try {
+        try {
 
-                WebElement element = wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(locator));
+            WebElement element = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(locator));
 
-                wait.until(ExpectedConditions.elementToBeClickable(element));
+            wait.until(ExpectedConditions.elementToBeClickable(element));
 
-                ((JavascriptExecutor) driver)
-                        .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+            ((JavascriptExecutor) driver)
+                    .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
 
-                element.clear();
-                element.sendKeys(text);
+            System.out.println("------------------------------------------------");
+            System.out.println("Typing into : " + locator);
+            System.out.println("Text        : " + text);
 
-                return;
+            element.clear();
+            element.sendKeys(text);
 
-            } catch (StaleElementReferenceException e) {
+            // Debug logs
+            System.out.println("Immediately : " + element.getAttribute("value"));
 
-                attempts++;
+            Thread.sleep(3000);
 
-                if (attempts == 3) {
-                    throw new RuntimeException("Unable to enter text into element: " + locator);
-                }
+            System.out.println("After 3 sec : " + element.getAttribute("value"));
+            System.out.println("------------------------------------------------");
+
+            return;
+
+        } catch (StaleElementReferenceException e) {
+
+            attempts++;
+
+            if (attempts == 3) {
+                throw new RuntimeException("Unable to enter text into element: " + locator);
             }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
+}
 
     // ======================
     // STABLE CLICK
