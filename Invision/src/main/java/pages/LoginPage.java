@@ -68,7 +68,8 @@ public class LoginPage extends BasePage {
     System.out.println("Login button clicked.");
 
     // Wait until dashboard loads
-    waitForUrlContains("adminDashboard");
+//    waitForUrlContains("adminDashboard");
+    waitForUrlContains("Dashboard");
 
     System.out.println("Dashboard Loaded Successfully.");
 }
