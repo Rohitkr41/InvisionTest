@@ -26,7 +26,8 @@ public class SidebarPage {
 
     private By visionCenterMenu = By.xpath("(//span[normalize-space()='Vision Center']/parent::a)[2]");
     
-    private By CommunityClinicMenu = By.xpath("//span[normalize-space()='Community Clinic']/parent::a");
+//    private By CommunityClinicMenu = By.xpath("//span[normalize-space()='Community Clinic']/parent::a");
+    private By CommunityClinicMenu = By.xpath("(//span[normalize-space()='Community Clinic']/parent::a)[2]");
     private By registrationMenu = By.xpath("//span[normalize-space()='Registration']");
     private By patientReceiptMenu = By.xpath("//span[normalize-space()='Print Reciept']");
     private By eyeExaminationMenu = By.xpath("//span[normalize-space()='Eye Examination']");
