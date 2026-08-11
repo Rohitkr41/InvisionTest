@@ -36,7 +36,7 @@ public class PatientReceiptTest extends BaseTest {
 
         PatientReceiptPage page = openPatientReceiptPage();
 
-        page.searchByRegistration("REG12345");
+        page.searchByRegistration("REG1234502");
 
         page.clickSearch();
     }
