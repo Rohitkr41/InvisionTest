@@ -33,7 +33,7 @@ public class FollowUpRegistrationTest extends BaseTest {
         // FollowUp Registration Flow
         FollowUpRegistrationPage followup = new FollowUpRegistrationPage(driver);
 
-        followup.enterMemberNumber("IH-IVC-26-0379");
+        followup.enterMemberNumber("IH-IVC-26-0380");
         followup.clickSearch();
         followup.clickFetch();
         followup.clickYes();
