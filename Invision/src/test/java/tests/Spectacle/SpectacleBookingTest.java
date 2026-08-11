@@ -37,7 +37,7 @@ public class SpectacleBookingTest extends BaseTest {
     @Test
     public void searchByRegistrationNumber() {
 
-        page.searchByRegistration("IH-IVC-26-0390");
+        page.searchByRegistration("IH-IVC-26-0391");
         page.clickTopSearch();
     }
 
