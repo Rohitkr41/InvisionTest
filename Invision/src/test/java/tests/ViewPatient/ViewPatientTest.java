@@ -53,7 +53,7 @@ public class ViewPatientTest extends BaseTest {
 
         ViewPatientPage page = openViewPatientPage();
 
-        page.searchByRegistrationNo("IH-IVC-26-0390");
+        page.searchByRegistrationNo("IH-IVC-26-0393");
 
         page.clickSearch();
     }
@@ -70,7 +70,7 @@ public class ViewPatientTest extends BaseTest {
 
         page.clickAdvanceSearch();
 
-        page.enterFirstName("SOPHIA");
+        page.enterFirstName("SOPHYA");
 
         page.clickAdvanceSearchButton();
     }
