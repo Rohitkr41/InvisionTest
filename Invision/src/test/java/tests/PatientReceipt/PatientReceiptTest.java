@@ -36,7 +36,7 @@ public class PatientReceiptTest extends BaseTest {
 
         PatientReceiptPage page = openPatientReceiptPage();
 
-        page.searchByRegistration("REG1234502");
+        page.searchByRegistration("REG1234522");
 
         page.clickSearch();
     }
@@ -50,7 +50,7 @@ public class PatientReceiptTest extends BaseTest {
 
         PatientReceiptPage page = openPatientReceiptPage();
 
-        page.searchByPhone("9876543210");
+        page.searchByPhone("9876543212");
 
         page.clickSearch();
     }
@@ -80,7 +80,7 @@ public class PatientReceiptTest extends BaseTest {
 
         page.openAdvanceSearch();
 
-        page.searchByDateVillage("01-03-2026", "10-03-2026", "Rampur");
+        page.searchByDateVillage("01-09-2026", "10-10-2026", "Rampur");
 
         page.clickPopupSearch();
     }
