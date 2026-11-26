@@ -34,7 +34,7 @@ public class VitalStatisticsTest extends BaseTest {
         vitalPage = new VitalStatisticsPage(driver);
 
         // SEARCH PATIENT
-        actionPage.searchByDate("01-03-2026", "15-03-2026");
+        actionPage.searchByDate("01-03-2026", "15-11-2026");
         actionPage.clickFirstRowPlusIcon();
     }
 
