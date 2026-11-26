@@ -30,7 +30,7 @@ public class WalkInRegistrationTest extends BaseTest {
 
 		for (int i = 1; i <= registrationCount; i++) {
 
-			System.out.println("Registration Number : " + i);
+			System.out.println("Registration Number: " + i);
 
 			SidebarPage sidebar = new SidebarPage(driver);
 //		    sidebar.clickVisionCenter();
