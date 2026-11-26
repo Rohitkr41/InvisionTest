@@ -33,7 +33,7 @@ public class FollowUpRegistrationTest extends BaseTest {
         // FollowUp Registration Flow
         FollowUpRegistrationPage followup = new FollowUpRegistrationPage(driver);
 
-        followup.enterMemberNumber("IH-IVC-26-0380");
+        followup.enterMemberNumber("IH-IVC-26-0384");
         followup.clickSearch();
         followup.clickFetch();
         followup.clickYes();
@@ -42,7 +42,7 @@ public class FollowUpRegistrationTest extends BaseTest {
         followup.handlePaymentAndRegister(
                 "UPI",              // Mode
                 "Poor Patient",    // Discount Remark
-                "TXN12345809",        // Transaction ID
+                "trnx67869",        // Transaction ID
                 "5"                // Discount Amount
         );
 
